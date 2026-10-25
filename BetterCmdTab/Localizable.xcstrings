@@ -1285,6 +1285,46 @@
         }
       }
     },
+    "Apple Events access for browser tabs" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Events-Zugriff für Browser-Tabs"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceso a Apple Events para pestañas del navegador"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accès Apple Events pour les onglets du navigateur"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dostęp do Apple Events dla kart przeglądarki"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступ к Apple Events для вкладок браузера"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浏览器标签页的 Apple Events 访问权限"
+          }
+        }
+      }
+    },
     "Applications only" : {
       "localizations" : {
         "de" : {
@@ -3445,47 +3485,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "内容"
-          }
-        }
-      }
-    },
-    "Controls" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Steuerung"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Controles"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commandes"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sterowanie"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Управление"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "操作方式"
           }
         }
       }
@@ -6132,6 +6131,86 @@
         }
       }
     },
+    "Hide or ignore specific apps" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestimmte Apps ausblenden oder ignorieren"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar o ignorar apps concretas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masquer ou ignorer certaines apps"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukryj lub pomijaj wybrane aplikacje"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Скрыть или игнорировать отдельные приложения"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏或忽略特定应用"
+          }
+        }
+      }
+    },
+    "Hotkeys that never open the switcher" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurzbefehle, die den Umschalter nicht öffnen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atajos que no abren el selector"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raccourcis qui n’ouvrent pas le sélecteur"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skróty, które nie otwierają przełącznika"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сочетания, которые не открывают переключатель"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不打开切换器的快捷键"
+          }
+        }
+      }
+    },
     "HUD (default)" : {
       "localizations" : {
         "de" : {
@@ -7569,6 +7648,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "包含 Beta 版本"
+          }
+        }
+      }
+    },
+    "Input" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingabe"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrada"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisie"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sterowanie"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ввод"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入"
           }
         }
       }
@@ -9095,43 +9214,42 @@
         }
       }
     },
-    "Many of these can be overridden per shortcut under Profiles." : {
-      "extractionState" : "manual",
+    "Many of these can be overridden per shortcut under Switcher Shortcuts." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vieles davon lässt sich unter „Profile“ pro Kurzbefehl überschreiben."
+            "value" : "Vieles davon lässt sich unter „Umschalter-Kurzbefehle“ pro Kurzbefehl überschreiben."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Muchas de ellas pueden anularse por atajo en «Perfiles»."
+            "value" : "Muchas de ellas pueden anularse por atajo en «Atajos del conmutador»."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beaucoup d'entre elles peuvent être remplacées par raccourci dans « Profils »."
+            "value" : "Beaucoup d'entre elles peuvent être remplacées par raccourci dans « Raccourcis du sélecteur »."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wiele z nich można nadpisać dla pojedynczego skrótu w sekcji „Profile”."
+            "value" : "Wiele z nich można nadpisać dla pojedynczego skrótu w sekcji „Skróty przełącznika”."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Многие из этих параметров можно переопределить для конкретных сочетаний клавиш в разделе «Профили»."
+            "value" : "Многие из этих параметров можно переопределить для конкретных сочетаний клавиш в разделе «Сочетания клавиш переключателя»."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "其中许多可在“配置文件”中按快捷键单独覆盖。"
+            "value" : "其中许多可在“切换器快捷键”中按快捷键单独覆盖。"
           }
         }
       }
@@ -10378,6 +10496,46 @@
         }
       }
     },
+    "No matching settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine passenden Einstellungen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay ajustes que coincidan"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun réglage correspondant"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak pasujących ustawień"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет подходящих настроек"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有匹配的设置"
+          }
+        }
+      }
+    },
     "No open window" : {
       "localizations" : {
         "de" : {
@@ -10894,6 +11052,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "打开"
+          }
+        }
+      }
+    },
+    "Open %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ öffnen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otwórz: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开%@"
           }
         }
       }
@@ -11859,6 +12057,46 @@
         }
       }
     },
+    "Placement" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platzierung"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ubicación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emplacement"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Położenie"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расположение"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "位置"
+          }
+        }
+      }
+    },
     "Play a sound when you pick an app." : {
       "localizations" : {
         "de" : {
@@ -12255,46 +12493,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "隐私"
-          }
-        }
-      }
-    },
-    "Profiles" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profile"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Perfiles"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profils"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profile"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Профили"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "配置方案"
           }
         }
       }
@@ -12697,6 +12895,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "红色"
+          }
+        }
+      }
+    },
+    "Related" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwandt"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relacionado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir aussi"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powiązane"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Связанные"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "相关"
           }
         }
       }
@@ -14343,6 +14581,53 @@
         }
       }
     },
+    "settings.group.system" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sistema"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Système"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Система"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统"
+          }
+        }
+      }
+    },
     "Shortcut %lld" : {
       "localizations" : {
         "de" : {
@@ -14383,43 +14668,42 @@
         }
       }
     },
-    "Shortcuts" : {
-      "extractionState" : "manual",
+    "Shortcuts that open the switcher" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurzbefehle"
+            "value" : "Kurzbefehle, die den Umschalter öffnen"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atajos"
+            "value" : "Atajos que abren el selector"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Raccourcis"
+            "value" : "Raccourcis qui ouvrent le sélecteur"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skróty"
+            "value" : "Skróty, które otwierają przełącznik"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сочетания клавиш"
+            "value" : "Сочетания, которые открывают переключатель"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "快捷键"
+            "value" : "打开切换器的快捷键"
           }
         }
       }
@@ -14460,6 +14744,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示"
+          }
+        }
+      }
+    },
+    "Show Details" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details einblenden"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar detalles"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher les détails"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż szczegóły"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать подробности"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示详细信息"
           }
         }
       }
@@ -16625,6 +16949,46 @@
         }
       }
     },
+    "Switcher Shortcuts" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umschalter-Kurzbefehle"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atajos del conmutador"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raccourcis du sélecteur"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skróty przełącznika"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сочетания клавиш переключателя"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切换器快捷键"
+          }
+        }
+      }
+    },
     "System" : {
       "localizations" : {
         "de" : {
@@ -17666,6 +18030,46 @@
         }
       }
     },
+    "Trackpad" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trackpad"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trackpad"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trackpad"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gładzik"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Трекпад"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "触控板"
+          }
+        }
+      }
+    },
     "Trackpad swipe" : {
       "localizations" : {
         "de" : {
@@ -17946,43 +18350,42 @@
         }
       }
     },
-    "Turn on “Type-to-filter search” under Controls first." : {
-      "extractionState" : "manual",
+    "Turn on “Type-to-filter search” under Keyboard first." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktiviere zuerst „Suche durch Tippen filtern“ unter „Steuerung“."
+            "value" : "Aktiviere zuerst „Suche durch Tippen filtern“ unter „Tastatur“."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Primero activa «Búsqueda al escribir» en «Controles»."
+            "value" : "Primero activa «Búsqueda al escribir» en «Teclado»."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Activez d'abord « Recherche par saisie » dans « Commandes »."
+            "value" : "Activez d'abord « Recherche par saisie » dans « Clavier »."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Najpierw włącz „Wyszukiwanie przez pisanie” w sekcji „Sterowanie”."
+            "value" : "Najpierw włącz „Wyszukiwanie przez pisanie” w sekcji „Klawiatura”."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сначала включите параметр «Поиск вводом символов» в разделе «Управление»."
+            "value" : "Сначала включите параметр «Поиск вводом символов» в разделе «Клавиатура»."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请先在“操作方式”中开启“输入筛选搜索”。"
+            "value" : "请先在“键盘”中开启“输入筛选搜索”。"
           }
         }
       }
@@ -18943,6 +19346,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "窗口栏"
+          }
+        }
+      }
+    },
+    "Window Shortcuts" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fenster-Kurzbefehle"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atajos de ventanas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raccourcis des fenêtres"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skróty okien"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сочетания клавиш для окон"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "窗口快捷键"
           }
         }
       }
