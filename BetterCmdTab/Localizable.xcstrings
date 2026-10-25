@@ -4209,6 +4209,46 @@
         }
       }
     },
+    "Distance from top" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abstand von oben"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancia desde arriba"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distance depuis le haut"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odległość od góry"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отступ сверху"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "距顶部距离"
+          }
+        }
+      }
+    },
     "Dock order" : {
       "localizations" : {
         "de" : {
@@ -19383,6 +19423,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "有打开窗口时"
+          }
+        }
+      }
+    },
+    "With “Top”, the gap above the panel as a percentage of the usable screen height." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei „Oben“ der Abstand über dem Panel in Prozent der nutzbaren Bildschirmhöhe."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Con «Arriba», el espacio sobre el panel como porcentaje de la altura útil de la pantalla."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avec « En haut », l’espace au-dessus du panneau en pourcentage de la hauteur utile de l’écran."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przy pozycji „Góra”: odstęp nad panelem jako procent użytecznej wysokości ekranu."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "При «Сверху» — отступ над панелью в процентах от полезной высоты экрана."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择“顶部”时，面板上方的间距占屏幕可用高度的百分比。"
           }
         }
       }

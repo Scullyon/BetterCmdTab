@@ -18,6 +18,8 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
     private var truncationRadio: SettingsRadioGroupView!
     private let gridPopup = NSPopUpButton(frame: .zero, pullsDown: false)
     private let selectionColorPopup = NSPopUpButton(frame: .zero, pullsDown: false)
+    private let topOffsetSlider = NSSlider()
+    private let topOffsetValueField = NSTextField()
     private let listWidthSlider = NSSlider()
     private let listWidthValueField = NSTextField()
     private let scaleSlider = NSSlider()
@@ -78,6 +80,14 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
                subtitle: String(localized: "Top keeps the panel in place while search narrows the list."),
                accessory: verticalPositionPopup, searchItemID: SearchID.verticalPosition)
 
+        let topOffsetTitle = String(localized: "Distance from top")
+        addRow(to: placement, title: topOffsetTitle,
+               subtitle: String(localized: "With “Top”, the gap above the panel as a percentage of the usable screen height."),
+               accessory: makePercentInput(topOffsetSlider, field: topOffsetValueField, range: Preferences.topOffsetPercentRange,
+                                           title: topOffsetTitle, sliderAction: #selector(topOffsetChanged(_:)),
+                                           fieldAction: #selector(topOffsetValueCommitted(_:))),
+               searchItemID: SearchID.topOffset)
+
         // Layout section: the panel's shape and size, and the grid columns.
         let layout = addSection(title: String(localized: "Layout"), anchor: SettingsAnchor.appearanceLayout)
 
@@ -85,50 +95,20 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
         addRow(to: layout, title: String(localized: "Layout"), accessory: layoutRadio, searchItemID: SearchID.layout)
 
         let sizeTitle = String(localized: "Size")
-        scaleSlider.minValue = Double(Preferences.panelScalePercentRange.lowerBound)
-        scaleSlider.maxValue = Double(Preferences.panelScalePercentRange.upperBound)
-        scaleSlider.isContinuous = true
-        scaleSlider.controlSize = .small
-        scaleSlider.target = self
-        scaleSlider.action = #selector(scaleChanged(_:))
-        scaleSlider.translatesAutoresizingMaskIntoConstraints = false
-        scaleSlider.setAccessibilityLabel(sizeTitle)
-        configureIntegerField(scaleValueField,
-                              action: #selector(scaleValueCommitted(_:)),
-                              accessibilityLabel: sizeTitle)
-        let scaleStack = NSStackView(views: [scaleSlider, unitInput(for: scaleValueField, unit: "%")])
-        scaleStack.orientation = .horizontal
-        scaleStack.spacing = 8
-        scaleStack.alignment = .centerY
-        NSLayoutConstraint.activate([
-            scaleSlider.widthAnchor.constraint(equalToConstant: 140),
-        ])
         addRow(to: layout, title: sizeTitle,
                subtitle: String(localized: "100% matches the size of the macOS switcher, on every display."),
-               accessory: scaleStack, searchItemID: SearchID.size)
+               accessory: makePercentInput(scaleSlider, field: scaleValueField, range: Preferences.panelScalePercentRange,
+                                           title: sizeTitle, sliderAction: #selector(scaleChanged(_:)),
+                                           fieldAction: #selector(scaleValueCommitted(_:))),
+               searchItemID: SearchID.size)
 
         let listWidthTitle = String(localized: "Maximum list width")
-        listWidthSlider.minValue = Double(Preferences.listWidthPercentRange.lowerBound)
-        listWidthSlider.maxValue = Double(Preferences.listWidthPercentRange.upperBound)
-        listWidthSlider.isContinuous = true
-        listWidthSlider.controlSize = .small
-        listWidthSlider.target = self
-        listWidthSlider.action = #selector(listWidthChanged(_:))
-        listWidthSlider.translatesAutoresizingMaskIntoConstraints = false
-        listWidthSlider.setAccessibilityLabel(listWidthTitle)
-        configureIntegerField(listWidthValueField,
-                              action: #selector(listWidthValueCommitted(_:)),
-                              accessibilityLabel: listWidthTitle)
-        let listWidthStack = NSStackView(views: [listWidthSlider, unitInput(for: listWidthValueField, unit: "%")])
-        listWidthStack.orientation = .horizontal
-        listWidthStack.spacing = 8
-        listWidthStack.alignment = .centerY
-        NSLayoutConstraint.activate([
-            listWidthSlider.widthAnchor.constraint(equalToConstant: 140),
-        ])
         addRow(to: layout, title: listWidthTitle,
                subtitle: String(localized: "Width of the List layout relative to automatic — lower it to narrow the panel on large displays."),
-               accessory: listWidthStack, searchItemID: SearchID.listMaxWidth)
+               accessory: makePercentInput(listWidthSlider, field: listWidthValueField, range: Preferences.listWidthPercentRange,
+                                           title: listWidthTitle, sliderAction: #selector(listWidthChanged(_:)),
+                                           fieldAction: #selector(listWidthValueCommitted(_:))),
+               searchItemID: SearchID.listMaxWidth)
 
         configurePopup(gridPopup, titles: gridValues.map { $0 == 0 ? String(localized: "Automatic") : "\($0)" }, action: #selector(gridChanged))
         addRow(to: layout, title: String(localized: "Grid columns"),
@@ -296,6 +276,28 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
         return stack
     }
 
+    private func makePercentInput(_ slider: NSSlider, field: NSTextField, range: ClosedRange<Int>, title: String,
+                                  sliderAction: Selector, fieldAction: Selector) -> NSView {
+        slider.minValue = Double(range.lowerBound)
+        slider.maxValue = Double(range.upperBound)
+        slider.isContinuous = true
+        slider.controlSize = .small
+        slider.target = self
+        slider.action = sliderAction
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.setAccessibilityLabel(title)
+        configureIntegerField(field, action: fieldAction, accessibilityLabel: title)
+
+        let stack = NSStackView(views: [slider, unitInput(for: field, unit: "%")])
+        stack.orientation = .horizontal
+        stack.spacing = 8
+        stack.alignment = .centerY
+        NSLayoutConstraint.activate([
+            slider.widthAnchor.constraint(equalToConstant: 140),
+        ])
+        return stack
+    }
+
     private func makeLayoutRadio() -> SettingsRadioGroupView {
         let options = layoutModes.map { mode in
             SettingsRadioGroupView.Option(identifier: mode.rawValue, title: mode.displayName)
@@ -365,6 +367,14 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in self?.selectGrid($0) }
             .store(in: &cancellables)
+        prefs.$topOffsetPercent
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.applyTopOffset($0) }
+            .store(in: &cancellables)
+        prefs.$verticalPosition
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.applyTopOffsetEnabled($0) }
+            .store(in: &cancellables)
         prefs.$listWidthPercent
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in self?.applyListWidth($0) }
@@ -427,11 +437,11 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
             .store(in: &cancellables)
         prefs.$fadeInDurationMs
             .receive(on: DispatchQueue.main)
-            .sink { [fadeInSlider, fadeInValueField] in Self.applyFade($0, slider: fadeInSlider, field: fadeInValueField) }
+            .sink { [fadeInSlider, fadeInValueField] in Self.applyInteger($0, slider: fadeInSlider, field: fadeInValueField) }
             .store(in: &cancellables)
         prefs.$fadeOutDurationMs
             .receive(on: DispatchQueue.main)
-            .sink { [fadeOutSlider, fadeOutValueField] in Self.applyFade($0, slider: fadeOutSlider, field: fadeOutValueField) }
+            .sink { [fadeOutSlider, fadeOutValueField] in Self.applyInteger($0, slider: fadeOutSlider, field: fadeOutValueField) }
             .store(in: &cancellables)
         prefs.$selectionColor
             .receive(on: DispatchQueue.main)
@@ -473,6 +483,8 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
         if let index = verticalPositions.firstIndex(of: prefs.verticalPosition) {
             verticalPositionPopup.selectItem(at: index)
         }
+        applyTopOffset(prefs.topOffsetPercent)
+        applyTopOffsetEnabled(prefs.verticalPosition)
         selectLayout(prefs.switcherLayoutMode)
         applyScale(prefs.panelScalePercent)
         selectAppearance(prefs.panelAppearance)
@@ -491,8 +503,8 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
         statusIconsSwitch.sync()
         animationsSwitch.sync()
         applyOpacity(prefs.panelOpacity)
-        Self.applyFade(prefs.fadeInDurationMs, slider: fadeInSlider, field: fadeInValueField)
-        Self.applyFade(prefs.fadeOutDurationMs, slider: fadeOutSlider, field: fadeOutValueField)
+        Self.applyInteger(prefs.fadeInDurationMs, slider: fadeInSlider, field: fadeInValueField)
+        Self.applyInteger(prefs.fadeOutDurationMs, slider: fadeOutSlider, field: fadeOutValueField)
         applyRadius(prefs.panelCornerRadius)
         selectSelectionColor(prefs.selectionColor)
         refreshCustomSwatch()
@@ -605,6 +617,31 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
         guard gridValues.indices.contains(i) else { return }
         Preferences.shared.gridMaxColumns = gridValues[i]
         gridSingleRowSwitch.isEnabled = (gridValues[i] == 0)
+    }
+
+    @objc private func topOffsetChanged(_ sender: NSSlider) {
+        Preferences.shared.topOffsetPercent = sender.integerValue
+        applyTopOffset(sender.integerValue)
+    }
+
+    @objc private func topOffsetValueCommitted(_ sender: NSTextField) {
+        guard let value = committedInteger(from: sender) else {
+            applyTopOffset(Preferences.shared.topOffsetPercent)
+            return
+        }
+        let clamped = Preferences.clampTopOffsetPercent(value)
+        Preferences.shared.topOffsetPercent = clamped
+        applyTopOffset(clamped)
+    }
+
+    private func applyTopOffset(_ value: Int) {
+        Self.applyInteger(value, slider: topOffsetSlider, field: topOffsetValueField)
+    }
+
+    private func applyTopOffsetEnabled(_ position: SwitcherVerticalPosition) {
+        let enabled = position == .top
+        topOffsetSlider.isEnabled = enabled
+        topOffsetValueField.isEnabled = enabled
     }
 
     @objc private func listWidthChanged(_ sender: NSSlider) {
@@ -738,7 +775,7 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
         if opacityValueField.stringValue != text { opacityValueField.stringValue = text }
     }
 
-    private static func applyFade(_ value: Int, slider: NSSlider, field: NSTextField) {
+    private static func applyInteger(_ value: Int, slider: NSSlider, field: NSTextField) {
         if slider.integerValue != value { slider.integerValue = value }
         let text = String(value)
         if field.stringValue != text { field.stringValue = text }

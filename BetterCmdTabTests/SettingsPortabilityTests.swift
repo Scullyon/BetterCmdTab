@@ -84,6 +84,35 @@ struct SettingsPortabilityTests {
         #expect(prefs.sinkMinimizedWindows == false)
     }
 
+    @Test("topOffsetPercent round-trips and clamps an out-of-range import")
+    func topOffsetPercentRoundTrip() throws {
+        let prefs = Preferences.shared
+        let key = Preferences.Keys.topOffsetPercent
+        let savedRaw = UserDefaults.standard.object(forKey: key)
+        let saved = prefs.topOffsetPercent
+        defer {
+            prefs.topOffsetPercent = saved
+            if savedRaw == nil { UserDefaults.standard.removeObject(forKey: key) }
+        }
+
+        prefs.topOffsetPercent = 12
+        let data = try Preferences.exportedJSONData()
+        let root = try #require(try JSONSerialization.jsonObject(with: data) as? [String: Any])
+        #expect(root["topOffsetPercent"] as? Int == 12)
+
+        try prefs.importSettings(from: flat(["topOffsetPercent": 90]))
+        #expect(prefs.topOffsetPercent == Preferences.topOffsetPercentRange.upperBound)
+        #expect(UserDefaults.standard.integer(forKey: key) == Preferences.topOffsetPercentRange.upperBound)
+
+        prefs.topOffsetPercent = 12
+        prefs.topOffsetPercent = -5
+        #expect(prefs.topOffsetPercent == 0)
+        #expect(UserDefaults.standard.integer(forKey: key) == 0)
+
+        try prefs.importSettings(from: data)
+        #expect(prefs.topOffsetPercent == 12)
+    }
+
     /// Default-true is what makes #159 upgrade-safe: it reproduces the historical
     /// unconditional sink, so a `?? false` typo would silently change behavior
     /// for every existing user. Pins the two reachable fallbacks: the raw-key

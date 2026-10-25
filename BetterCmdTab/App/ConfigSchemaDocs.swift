@@ -241,6 +241,9 @@ enum ConfigSchemaDocs {
         "verticalPosition": ConfigSettingDoc(
             "string", "Where the switcher sits vertically. top keeps its top edge still while search narrows the list.",
             values: ConfigValues(SwitcherVerticalPosition.self, \.displayName)),
+        "topOffsetPercent": ConfigSettingDoc(
+            "integer", "With verticalPosition top, the gap above the panel as a percentage of the usable screen height (menu bar and Dock excluded).",
+            range: Preferences.topOffsetPercentRange),
         "revealDelayMs": ConfigSettingDoc(
             "integer", "How long the shortcut must be held before the panel appears — a quicker tap switches without showing it (milliseconds).",
             range: Preferences.revealDelayRange),

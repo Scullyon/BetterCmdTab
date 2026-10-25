@@ -4991,9 +4991,12 @@ final class SwitcherController: SwitcherViewDelegate {
                         metrics: metrics, effective: shelfEffective)
         shelf.isHidden = false
         // Past the room, the panel would slide or clamp and the switcher row would move.
-        // `.top` hangs from 20% down the screen (#175), so it has the other 80%.
+        // `.top` hangs `topOffsetPercent` down the screen (#175), so it has the rest.
         let visible = panel.activeScreen().visibleFrame
-        let room = Preferences.shared.verticalPosition == .top ? visible.height * 0.8 : visible.height
+        let prefs = Preferences.shared
+        let room = prefs.verticalPosition == .top
+            ? SwitcherPanel.topRoom(in: visible, topOffsetPercent: prefs.topOffsetPercent)
+            : visible.height
         guard stack.fittingSize.height <= room else { return hide() }
         stack.needsLayout = true
         return shelf.intrinsicContentSize != sizeBefore

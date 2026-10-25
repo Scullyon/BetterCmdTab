@@ -170,6 +170,7 @@ enum SearchID {
     static let displayMonitor = "appearance.displayMonitor"
     static let movePointerAcrossDisplays = "appearance.movePointerAcrossDisplays"
     static let verticalPosition = "appearance.verticalPosition"
+    static let topOffset = "appearance.topOffset"
     static let layout = "appearance.layout"
     static let size = "appearance.size"
     static let gridColumns = "appearance.gridColumns"
@@ -547,6 +548,8 @@ enum SettingsCatalog {
              String(localized: "Move pointer to the window's display"), ["pointer", "cursor", "mouse", "follow", "display", "monitor", "multi monitor"]),
         item(SearchID.verticalPosition, .appearance, SettingsAnchor.appearancePlacement, String(localized: "Appearance"), String(localized: "Placement"),
              String(localized: "Vertical position"), ["position", "vertical", "top", "center", "higher", "align", "placement"]),
+        item(SearchID.topOffset, .appearance, SettingsAnchor.appearancePlacement, String(localized: "Appearance"), String(localized: "Placement"),
+             String(localized: "Distance from top"), ["top", "offset", "margin", "padding", "gap", "percent", "higher", "lower"]),
         item(SearchID.layout, .appearance, SettingsAnchor.appearanceLayout, String(localized: "Appearance"), String(localized: "Layout"),
              String(localized: "Layout"), ["layout", "grid", "list", "preview"]),
         item(SearchID.size, .appearance, SettingsAnchor.appearanceLayout, String(localized: "Appearance"), String(localized: "Layout"),

@@ -931,6 +931,10 @@ final class Preferences: ObservableObject {
     /// list without shrinking text or icons. Floored so a hand-edited/corrupted
     /// import can't shrink rows to slivers.
     nonisolated static let listWidthPercentRange: ClosedRange<Int> = 30...100
+    /// Gap above a `.top` panel, as a share of the visible screen height (#175). Capped at 40: past that,
+    /// a tall list overflows, slides up, and moves again as search narrows it.
+    nonisolated static let topOffsetPercentRange: ClosedRange<Int> = 0...40
+    nonisolated static let defaultTopOffsetPercent = 20
     /// Upper bound on recently-closed entries surfaced in search. `0` disables.
     nonisolated static let recentlyClosedLimitRange: ClosedRange<Int> = 0...50
     /// Valid per-window browser-tab row caps when a limit is set (#144).
@@ -1074,6 +1078,7 @@ final class Preferences: ObservableObject {
         static let panelOpacity = "Switcher.panelOpacity"
         static let panelCornerRadius = "Switcher.panelCornerRadius"
         static let listWidthPercent = "Switcher.listWidthPercent"
+        static let topOffsetPercent = "Switcher.topOffsetPercent"
         static let backdropMaterial = "Switcher.backdropMaterial"
         /// `SwitcherSelectionColor` raw value — the selection highlight color (#185).
         /// Deliberately not the retired `Switcher.accentChoice`: that key is
@@ -1156,6 +1161,18 @@ final class Preferences: ObservableObject {
         didSet {
             guard oldValue != verticalPosition else { return }
             UserDefaults.standard.set(verticalPosition.rawValue, forKey: Keys.verticalPosition)
+        }
+    }
+
+    @Published var topOffsetPercent: Int {
+        didSet {
+            let clamped = Self.clampTopOffsetPercent(topOffsetPercent)
+            if clamped != topOffsetPercent {
+                topOffsetPercent = clamped
+                return
+            }
+            guard oldValue != topOffsetPercent else { return }
+            UserDefaults.standard.set(topOffsetPercent, forKey: Keys.topOffsetPercent)
         }
     }
 
@@ -2536,6 +2553,10 @@ final class Preferences: ObservableObject {
         min(listWidthPercentRange.upperBound, max(listWidthPercentRange.lowerBound, value))
     }
 
+    nonisolated static func clampTopOffsetPercent(_ value: Int) -> Int {
+        min(topOffsetPercentRange.upperBound, max(topOffsetPercentRange.lowerBound, value))
+    }
+
     static func clampRecentlyClosedLimit(_ value: Int) -> Int {
         min(recentlyClosedLimitRange.upperBound, max(recentlyClosedLimitRange.lowerBound, value))
     }
@@ -2641,6 +2662,7 @@ final class Preferences: ObservableObject {
         self.movePointerAcrossDisplays = defaults.bool(forKey: Keys.movePointerAcrossDisplays)
         self.verticalPosition = defaults.string(forKey: Keys.verticalPosition)
             .flatMap(SwitcherVerticalPosition.init(rawValue:)) ?? .center
+        self.topOffsetPercent = Self.clampTopOffsetPercent(defaults.object(forKey: Keys.topOffsetPercent) as? Int ?? Self.defaultTopOffsetPercent)
 
         let sortRaw = defaults.string(forKey: Keys.sortOrder)
         self.sortOrder = sortRaw.flatMap(SwitcherSortOrder.init(rawValue:)) ?? .mru
@@ -2836,6 +2858,7 @@ final class Preferences: ObservableObject {
         movePointerAcrossDisplays = defaults.bool(forKey: Keys.movePointerAcrossDisplays)
         verticalPosition = defaults.string(forKey: Keys.verticalPosition)
             .flatMap(SwitcherVerticalPosition.init(rawValue:)) ?? .center
+        topOffsetPercent = Self.clampTopOffsetPercent(defaults.object(forKey: Keys.topOffsetPercent) as? Int ?? Self.defaultTopOffsetPercent)
         sortOrder = defaults.string(forKey: Keys.sortOrder).flatMap(SwitcherSortOrder.init(rawValue:)) ?? .mru
         revealDelayMs = Self.clampDelay(defaults.object(forKey: Keys.revealDelayMs) as? Int ?? Self.defaultRevealDelayMs)
         letterChainTimeoutMs = Self.clampLetterChainTimeout(defaults.object(forKey: Keys.letterChainTimeoutMs) as? Int ?? Self.defaultLetterChainTimeoutMs)

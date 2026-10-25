@@ -1087,6 +1087,12 @@
       ],
       "type" : "string"
     },
+    "topOffsetPercent" : {
+      "description" : "With verticalPosition top, the gap above the panel as a percentage of the usable screen height (menu bar and Dock excluded).",
+      "maximum" : 40,
+      "minimum" : 0,
+      "type" : "integer"
+    },
     "verticalPosition" : {
       "description" : "Where the switcher sits vertically. top keeps its top edge still while search narrows the list.",
       "enum" : [

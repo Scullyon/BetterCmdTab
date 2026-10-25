@@ -218,7 +218,9 @@ final class SwitcherPanel: NSPanel {
             height: min(fitting.height, visible.height)
         )
         let hanging = (content as? SwitcherStackView)?.shelfExtent ?? 0
-        let origin = Self.origin(of: size, in: visible, position: Preferences.shared.verticalPosition, hanging: hanging)
+        let prefs = Preferences.shared
+        let origin = Self.origin(of: size, in: visible, position: prefs.verticalPosition,
+                                 topOffsetPercent: prefs.topOffsetPercent, hanging: hanging)
         let newFrame = NSRect(origin: origin, size: size)
         if frame != newFrame {
             if resizeAnimates {
@@ -378,20 +380,26 @@ final class SwitcherPanel: NSPanel {
         )
     }
 
-    /// `.top` pins the top edge 20% down the visible frame (eye height, #175);
+    /// `.top` pins the top edge `topOffsetPercent` down the visible frame (default 20, eye height, #175);
     /// a panel too tall for that slides up rather than spilling off the bottom.
     /// `hanging` is the window shelf's (#211) share of the height: `.center`
     /// centers the rest, so the switcher stays put while the shelf comes and goes.
-    static func origin(of size: NSSize, in visible: NSRect, position: SwitcherVerticalPosition, hanging: CGFloat = 0) -> NSPoint {
+    static func origin(of size: NSSize, in visible: NSRect, position: SwitcherVerticalPosition,
+                       topOffsetPercent: Int, hanging: CGFloat = 0) -> NSPoint {
         let x = visible.midX - size.width / 2
         switch position {
         case .center:
             let centered = visible.midY - (size.height + hanging) / 2
             return NSPoint(x: x, y: max(visible.minY, centered))
         case .top:
-            let top = visible.maxY - visible.height * 0.2
+            let top = visible.minY + topRoom(in: visible, topOffsetPercent: topOffsetPercent)
             return NSPoint(x: x, y: max(visible.minY, top - size.height))
         }
+    }
+
+    /// Height below the `.top` panel's top edge, the room it can fill without sliding.
+    static func topRoom(in visible: NSRect, topOffsetPercent: Int) -> CGFloat {
+        visible.height * CGFloat(100 - topOffsetPercent) / 100
     }
 
     func activeScreen() -> NSScreen {
