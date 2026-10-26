@@ -33,6 +33,7 @@ beforeEach(() => {
 const release = (tag: string, prerelease: boolean, downloads: number): GhRelease => ({
   tag_name: tag,
   prerelease,
+  published_at: "2026-07-03T12:30:53Z",
   assets: [
     {
       name: `BetterCmdTab-${tag}.dmg`,
@@ -45,6 +46,7 @@ const release = (tag: string, prerelease: boolean, downloads: number): GhRelease
 test("channels picks the newest stable and exposes a beta only when it leads", () => {
   const withBeta = channels([release("26.7-beta.3", true, 10), release("26.6.1", false, 90)]);
   expect(withBeta.stable.version).toBe("26.6.1");
+  expect(withBeta.stable.published).toBe("2026-07-03T12:30:53Z");
   expect(withBeta.beta?.version).toBe("26.7-beta.3");
   expect(withBeta.totalDownloads).toBe(100);
 
@@ -61,7 +63,7 @@ test("channels survives an empty list and a release with no .dmg", () => {
   expect(empty.beta).toBeNull();
   expect(empty.totalDownloads).toBe(0);
 
-  const noDmg = channels([{ tag_name: "26.7", prerelease: false, assets: [] }]);
+  const noDmg = channels([{ tag_name: "26.7", prerelease: false, published_at: null, assets: [] }]);
   expect(noDmg.stable.dmgUrl).toBe(`${REPO}/releases/latest`);
 });
 
@@ -94,6 +96,12 @@ test("corrupt, legacy and tampered entries are rejected, never rendered", () => 
     JSON.stringify({ at: 1, rel: { ...ok, totalDownloads: -1 } }),
     JSON.stringify({ at: 1, rel: { ...ok, totalDownloads: 1.5 } }),
     JSON.stringify({ at: 1, rel: { ...ok, stable: { version: "26.7", dmgUrl: 42 } } }),
+    // Cached before channels carried a release date.
+    JSON.stringify({
+      at: 1,
+      rel: { ...ok, stable: { version: "26.7", dmgUrl: ok.stable.dmgUrl } },
+    }),
+    JSON.stringify({ at: 1, rel: { ...ok, stable: { ...ok.stable, published: "soon" } } }),
     // An href pointing anywhere but this repo must never reach the page.
     JSON.stringify({
       at: 1,

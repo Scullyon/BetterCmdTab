@@ -27,11 +27,14 @@ export interface GhAsset {
 export interface GhRelease {
   tag_name: string;
   prerelease: boolean;
+  published_at: string | null;
   assets: GhAsset[];
 }
 
 export interface Channel {
   version: string | null;
+  // ISO timestamp of the release, shown as "Updated <month>".
+  published: string | null;
   dmgUrl: string;
 }
 
@@ -46,6 +49,7 @@ export interface Releases {
 
 const dmgOf = (r: GhRelease | undefined): Channel => ({
   version: r?.tag_name ?? null,
+  published: r?.published_at ?? null,
   dmgUrl:
     r?.assets.find((a) => a.name.endsWith(".dmg"))?.browser_download_url ??
     `${REPO}/releases/latest`,
@@ -80,8 +84,12 @@ export interface CacheEntry {
 
 function isChannel(c: unknown): c is Channel {
   if (typeof c !== "object" || c === null) return false;
-  const { version, dmgUrl } = c as Channel;
+  const { version, published, dmgUrl } = c as Channel;
   if (version !== null && typeof version !== "string") return false;
+  // Also rejects entries cached before releases carried a date, so they refetch.
+  // An unparseable date would make Intl.DateTimeFormat throw during render.
+  if (published !== null && (typeof published !== "string" || Number.isNaN(Date.parse(published))))
+    return false;
   // dmgUrl goes straight into an <a href download>. Only ever accept one
   // pointing back at this repo, so a corrupted or tampered-with entry cannot
   // turn the download button into a redirect to someone else's binary.

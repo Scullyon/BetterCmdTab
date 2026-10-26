@@ -1,142 +1,526 @@
 [
   {
-    "tag_name": "26.7-beta.3",
+    "tag_name": "26.8-beta.8",
     "prerelease": true,
+    "published_at": "2026-10-25T10:10:10Z",
     "assets": [
       {
-        "name": "BetterCmdTab-26.7-beta.3-20260723195248.dmg",
-        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.3/BetterCmdTab-26.7-beta.3-20260723195248.dmg",
-        "download_count": 249
+        "name": "BetterCmdTab-26.8-beta.8-20261025110735.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.8/BetterCmdTab-26.8-beta.8-20261025110735.dmg",
+        "download_count": 175
       },
       {
-        "name": "BetterCmdTab-26.7-beta.3-20260723195248.zip",
-        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.3/BetterCmdTab-26.7-beta.3-20260723195248.zip",
-        "download_count": 7
+        "name": "BetterCmdTab-26.8-beta.8-20261025110735.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.8/BetterCmdTab-26.8-beta.8-20261025110735.zip",
+        "download_count": 4
       },
       {
         "name": "betterupdater-manifest.json",
-        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.3/betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.8/betterupdater-manifest.json",
+        "download_count": 124
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.8/betterupdater-manifest.json.sig",
+        "download_count": 124
+      }
+    ]
+  },
+  {
+    "tag_name": "26.8-beta.7",
+    "prerelease": true,
+    "published_at": "2026-10-09T19:29:24Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.8-beta.7-20261009212642.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.7/BetterCmdTab-26.8-beta.7-20261009212642.dmg",
+        "download_count": 415
+      },
+      {
+        "name": "BetterCmdTab-26.8-beta.7-20261009212642.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.7/BetterCmdTab-26.8-beta.7-20261009212642.zip",
+        "download_count": 5
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.7/betterupdater-manifest.json",
+        "download_count": 184
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.7/betterupdater-manifest.json.sig",
+        "download_count": 184
+      }
+    ]
+  },
+  {
+    "tag_name": "26.8-beta.6",
+    "prerelease": true,
+    "published_at": "2026-10-08T13:13:02Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.8-beta.6-20261008150637.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.6/BetterCmdTab-26.8-beta.6-20261008150637.dmg",
+        "download_count": 170
+      },
+      {
+        "name": "BetterCmdTab-26.8-beta.6-20261008150637.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.6/BetterCmdTab-26.8-beta.6-20261008150637.zip",
+        "download_count": 2
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.6/betterupdater-manifest.json",
+        "download_count": 119
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.6/betterupdater-manifest.json.sig",
+        "download_count": 119
+      }
+    ]
+  },
+  {
+    "tag_name": "26.8-beta.5",
+    "prerelease": true,
+    "published_at": "2026-09-30T12:34:10Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.8-beta.5-20260930143154.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.5/BetterCmdTab-26.8-beta.5-20260930143154.dmg",
+        "download_count": 301
+      },
+      {
+        "name": "BetterCmdTab-26.8-beta.5-20260930143154.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.5/BetterCmdTab-26.8-beta.5-20260930143154.zip",
+        "download_count": 6
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.5/betterupdater-manifest.json",
+        "download_count": 141
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.5/betterupdater-manifest.json.sig",
+        "download_count": 141
+      }
+    ]
+  },
+  {
+    "tag_name": "26.8-beta.4",
+    "prerelease": true,
+    "published_at": "2026-09-30T10:17:04Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.8-beta.4-20260930121410.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.4/BetterCmdTab-26.8-beta.4-20260930121410.dmg",
+        "download_count": 69
+      },
+      {
+        "name": "BetterCmdTab-26.8-beta.4-20260930121410.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.4/BetterCmdTab-26.8-beta.4-20260930121410.zip",
+        "download_count": 4
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.4/betterupdater-manifest.json",
+        "download_count": 57
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.4/betterupdater-manifest.json.sig",
+        "download_count": 57
+      }
+    ]
+  },
+  {
+    "tag_name": "26.8-beta.3",
+    "prerelease": true,
+    "published_at": "2026-09-25T10:10:13Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.8-beta.3-20260925120738.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.3/BetterCmdTab-26.8-beta.3-20260925120738.dmg",
+        "download_count": 203
+      },
+      {
+        "name": "BetterCmdTab-26.8-beta.3-20260925120738.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.3/BetterCmdTab-26.8-beta.3-20260925120738.zip",
+        "download_count": 4
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.3/betterupdater-manifest.json",
+        "download_count": 109
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.3/betterupdater-manifest.json.sig",
+        "download_count": 109
+      }
+    ]
+  },
+  {
+    "tag_name": "26.8-beta.2",
+    "prerelease": true,
+    "published_at": "2026-09-23T17:23:23Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.8-beta.2-20260923192047.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.2/BetterCmdTab-26.8-beta.2-20260923192047.dmg",
+        "download_count": 135
+      },
+      {
+        "name": "BetterCmdTab-26.8-beta.2-20260923192047.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.2/BetterCmdTab-26.8-beta.2-20260923192047.zip",
+        "download_count": 5
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.2/betterupdater-manifest.json",
+        "download_count": 81
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.2/betterupdater-manifest.json.sig",
+        "download_count": 80
+      }
+    ]
+  },
+  {
+    "tag_name": "26.8-beta.1",
+    "prerelease": true,
+    "published_at": "2026-09-23T12:32:46Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.8-beta.1-20260923142947.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.1/BetterCmdTab-26.8-beta.1-20260923142947.dmg",
+        "download_count": 88
+      },
+      {
+        "name": "BetterCmdTab-26.8-beta.1-20260923142947.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.1/BetterCmdTab-26.8-beta.1-20260923142947.zip",
+        "download_count": 3
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.1/betterupdater-manifest.json",
+        "download_count": 71
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.8-beta.1/betterupdater-manifest.json.sig",
+        "download_count": 71
+      }
+    ]
+  },
+  {
+    "tag_name": "26.7",
+    "prerelease": false,
+    "published_at": "2026-08-13T12:51:22Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.7-20260813144806.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7/BetterCmdTab-26.7-20260813144806.dmg",
+        "download_count": 10350
+      },
+      {
+        "name": "BetterCmdTab-26.7-20260813144806.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7/BetterCmdTab-26.7-20260813144806.zip",
+        "download_count": 44
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7/betterupdater-manifest.json",
+        "download_count": 1990
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7/betterupdater-manifest.json.sig",
+        "download_count": 1985
+      }
+    ]
+  },
+  {
+    "tag_name": "26.7-beta.8",
+    "prerelease": true,
+    "published_at": "2026-08-13T10:29:12Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.7-beta.8-20260813122653.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.8/BetterCmdTab-26.7-beta.8-20260813122653.dmg",
+        "download_count": 67
+      },
+      {
+        "name": "BetterCmdTab-26.7-beta.8-20260813122653.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.8/BetterCmdTab-26.7-beta.8-20260813122653.zip",
+        "download_count": 4
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.8/betterupdater-manifest.json",
+        "download_count": 52
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.8/betterupdater-manifest.json.sig",
+        "download_count": 53
+      }
+    ]
+  },
+  {
+    "tag_name": "26.7-beta.7",
+    "prerelease": true,
+    "published_at": "2026-08-12T20:42:10Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.7-beta.7-20260812222813.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.7/BetterCmdTab-26.7-beta.7-20260812222813.dmg",
+        "download_count": 140
+      },
+      {
+        "name": "BetterCmdTab-26.7-beta.7-20260812222813.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.7/BetterCmdTab-26.7-beta.7-20260812222813.zip",
+        "download_count": 3
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.7/betterupdater-manifest.json",
+        "download_count": 85
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.7/betterupdater-manifest.json.sig",
+        "download_count": 84
+      }
+    ]
+  },
+  {
+    "tag_name": "26.7-beta.6",
+    "prerelease": true,
+    "published_at": "2026-08-11T20:49:57Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.7-beta.6-20260811224717.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.6/BetterCmdTab-26.7-beta.6-20260811224717.dmg",
+        "download_count": 162
+      },
+      {
+        "name": "BetterCmdTab-26.7-beta.6-20260811224717.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.6/BetterCmdTab-26.7-beta.6-20260811224717.zip",
+        "download_count": 3
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.6/betterupdater-manifest.json",
         "download_count": 105
       },
       {
         "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.6/betterupdater-manifest.json.sig",
+        "download_count": 106
+      }
+    ]
+  },
+  {
+    "tag_name": "26.7-beta.5",
+    "prerelease": true,
+    "published_at": "2026-08-09T19:07:41Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.7-beta.5-20260809210433.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.5/BetterCmdTab-26.7-beta.5-20260809210433.dmg",
+        "download_count": 173
+      },
+      {
+        "name": "BetterCmdTab-26.7-beta.5-20260809210433.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.5/BetterCmdTab-26.7-beta.5-20260809210433.zip",
+        "download_count": 4
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.5/betterupdater-manifest.json",
+        "download_count": 105
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.5/betterupdater-manifest.json.sig",
+        "download_count": 106
+      }
+    ]
+  },
+  {
+    "tag_name": "26.7-beta.4",
+    "prerelease": true,
+    "published_at": "2026-08-04T14:17:34Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.7-beta.4-20260804161459.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.4/BetterCmdTab-26.7-beta.4-20260804161459.dmg",
+        "download_count": 211
+      },
+      {
+        "name": "BetterCmdTab-26.7-beta.4-20260804161459.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.4/BetterCmdTab-26.7-beta.4-20260804161459.zip",
+        "download_count": 2
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.4/betterupdater-manifest.json",
+        "download_count": 107
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.4/betterupdater-manifest.json.sig",
+        "download_count": 108
+      }
+    ]
+  },
+  {
+    "tag_name": "26.7-beta.3",
+    "prerelease": true,
+    "published_at": "2026-07-23T17:55:28Z",
+    "assets": [
+      {
+        "name": "BetterCmdTab-26.7-beta.3-20260723195248.dmg",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.3/BetterCmdTab-26.7-beta.3-20260723195248.dmg",
+        "download_count": 277
+      },
+      {
+        "name": "BetterCmdTab-26.7-beta.3-20260723195248.zip",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.3/BetterCmdTab-26.7-beta.3-20260723195248.zip",
+        "download_count": 9
+      },
+      {
+        "name": "betterupdater-manifest.json",
+        "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.3/betterupdater-manifest.json",
+        "download_count": 109
+      },
+      {
+        "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.3/betterupdater-manifest.json.sig",
-        "download_count": 104
+        "download_count": 109
       }
     ]
   },
   {
     "tag_name": "26.7-beta.2",
     "prerelease": true,
+    "published_at": "2026-07-18T17:04:48Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.7-beta.2-20260718190227.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.2/BetterCmdTab-26.7-beta.2-20260718190227.dmg",
-        "download_count": 117
+        "download_count": 121
       },
       {
         "name": "BetterCmdTab-26.7-beta.2-20260718190227.zip",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.2/BetterCmdTab-26.7-beta.2-20260718190227.zip",
-        "download_count": 3
+        "download_count": 5
       },
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.2/betterupdater-manifest.json",
-        "download_count": 79
+        "download_count": 80
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.2/betterupdater-manifest.json.sig",
-        "download_count": 79
+        "download_count": 81
       }
     ]
   },
   {
     "tag_name": "26.7-beta.1",
     "prerelease": true,
+    "published_at": "2026-07-12T13:56:36Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.7-beta.1-20260712155351.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.1/BetterCmdTab-26.7-beta.1-20260712155351.dmg",
-        "download_count": 117
+        "download_count": 122
       },
       {
         "name": "BetterCmdTab-26.7-beta.1-20260712155351.zip",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.1/BetterCmdTab-26.7-beta.1-20260712155351.zip",
-        "download_count": 5
+        "download_count": 7
       },
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.1/betterupdater-manifest.json",
-        "download_count": 71
+        "download_count": 72
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.7-beta.1/betterupdater-manifest.json.sig",
-        "download_count": 71
+        "download_count": 73
       }
     ]
   },
   {
     "tag_name": "v26.6.1",
     "prerelease": false,
+    "published_at": "2026-07-03T10:33:19Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.6.1-20260703123053.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.6.1/BetterCmdTab-26.6.1-20260703123053.dmg",
-        "download_count": 4570
+        "download_count": 5376
       },
       {
         "name": "BetterCmdTab-26.6.1-20260703123053.zip",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.6.1/BetterCmdTab-26.6.1-20260703123053.zip",
-        "download_count": 27
+        "download_count": 34
       },
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.6.1/betterupdater-manifest.json",
-        "download_count": 816
+        "download_count": 837
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.6.1/betterupdater-manifest.json.sig",
-        "download_count": 813
+        "download_count": 834
       }
     ]
   },
   {
     "tag_name": "v26.6",
     "prerelease": false,
+    "published_at": "2026-07-02T12:02:21Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.6-20260702140005.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.6/BetterCmdTab-26.6-20260702140005.dmg",
-        "download_count": 808
+        "download_count": 817
       },
       {
         "name": "BetterCmdTab-26.6-20260702140005.zip",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.6/BetterCmdTab-26.6-20260702140005.zip",
-        "download_count": 2
+        "download_count": 3
       },
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.6/betterupdater-manifest.json",
-        "download_count": 440
+        "download_count": 441
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.6/betterupdater-manifest.json.sig",
-        "download_count": 440
+        "download_count": 442
       }
     ]
   },
   {
     "tag_name": "v26.5.1",
     "prerelease": false,
+    "published_at": "2026-06-13T03:20:03Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.5.1-20260613051735.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.5.1/BetterCmdTab-26.5.1-20260613051735.dmg",
-        "download_count": 1971
+        "download_count": 1976
       },
       {
         "name": "BetterCmdTab-26.5.1-20260613051735.zip",
@@ -146,23 +530,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.5.1/betterupdater-manifest.json",
-        "download_count": 233
+        "download_count": 234
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.5.1/betterupdater-manifest.json.sig",
-        "download_count": 231
+        "download_count": 233
       }
     ]
   },
   {
     "tag_name": "v26.5",
     "prerelease": false,
+    "published_at": "2026-06-08T11:18:27Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.5-20260608131601.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.5/BetterCmdTab-26.5-20260608131601.dmg",
-        "download_count": 295
+        "download_count": 297
       },
       {
         "name": "BetterCmdTab-26.5-20260608131601.zip",
@@ -172,23 +557,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.5/betterupdater-manifest.json",
-        "download_count": 151
+        "download_count": 152
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.5/betterupdater-manifest.json.sig",
-        "download_count": 148
+        "download_count": 150
       }
     ]
   },
   {
     "tag_name": "v26.4.3",
     "prerelease": false,
+    "published_at": "2026-06-04T14:58:53Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.4.3-20260604165644.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.3/BetterCmdTab-26.4.3-20260604165644.dmg",
-        "download_count": 217
+        "download_count": 219
       },
       {
         "name": "BetterCmdTab-26.4.3-20260604165644.zip",
@@ -198,23 +584,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.3/betterupdater-manifest.json",
-        "download_count": 113
+        "download_count": 114
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.3/betterupdater-manifest.json.sig",
-        "download_count": 113
+        "download_count": 115
       }
     ]
   },
   {
     "tag_name": "v26.4.2",
     "prerelease": false,
+    "published_at": "2026-06-02T18:43:00Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.4.2-20260602204032.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.2/BetterCmdTab-26.4.2-20260602204032.dmg",
-        "download_count": 159
+        "download_count": 161
       },
       {
         "name": "BetterCmdTab-26.4.2-20260602204032.zip",
@@ -224,23 +611,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.2/betterupdater-manifest.json",
-        "download_count": 103
+        "download_count": 104
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.2/betterupdater-manifest.json.sig",
-        "download_count": 103
+        "download_count": 104
       }
     ]
   },
   {
     "tag_name": "v26.4.1",
     "prerelease": false,
+    "published_at": "2026-05-31T22:56:01Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.4.1-20260601005351.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.1/BetterCmdTab-26.4.1-20260601005351.dmg",
-        "download_count": 162
+        "download_count": 163
       },
       {
         "name": "BetterCmdTab-26.4.1-20260601005351.zip",
@@ -250,23 +638,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.1/betterupdater-manifest.json",
-        "download_count": 94
+        "download_count": 95
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4.1/betterupdater-manifest.json.sig",
-        "download_count": 94
+        "download_count": 95
       }
     ]
   },
   {
     "tag_name": "v26.4",
     "prerelease": false,
+    "published_at": "2026-05-31T17:05:13Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.4-20260531190031.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4/BetterCmdTab-26.4-20260531190031.dmg",
-        "download_count": 32
+        "download_count": 33
       },
       {
         "name": "BetterCmdTab-26.4-20260531190031.zip",
@@ -276,23 +665,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4/betterupdater-manifest.json",
-        "download_count": 24
+        "download_count": 25
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.4/betterupdater-manifest.json.sig",
-        "download_count": 23
+        "download_count": 24
       }
     ]
   },
   {
     "tag_name": "v26.3.2",
     "prerelease": false,
+    "published_at": "2026-05-28T20:32:12Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.3.2-20260528222835.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3.2/BetterCmdTab-26.3.2-20260528222835.dmg",
-        "download_count": 172
+        "download_count": 173
       },
       {
         "name": "BetterCmdTab-26.3.2-20260528222835.zip",
@@ -302,23 +692,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3.2/betterupdater-manifest.json",
-        "download_count": 78
+        "download_count": 79
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3.2/betterupdater-manifest.json.sig",
-        "download_count": 78
+        "download_count": 79
       }
     ]
   },
   {
     "tag_name": "v26.3.1",
     "prerelease": false,
+    "published_at": "2026-05-28T12:46:03Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.3.1-20260528144249.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3.1/BetterCmdTab-26.3.1-20260528144249.dmg",
-        "download_count": 70
+        "download_count": 72
       },
       {
         "name": "BetterCmdTab-26.3.1-20260528144249.zip",
@@ -328,23 +719,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3.1/betterupdater-manifest.json",
-        "download_count": 32
+        "download_count": 33
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3.1/betterupdater-manifest.json.sig",
-        "download_count": 32
+        "download_count": 33
       }
     ]
   },
   {
     "tag_name": "v26.3",
     "prerelease": false,
+    "published_at": "2026-05-28T01:07:44Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.3-20260528030240.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3/BetterCmdTab-26.3-20260528030240.dmg",
-        "download_count": 69
+        "download_count": 71
       },
       {
         "name": "BetterCmdTab-26.3-20260528030240.zip",
@@ -354,23 +746,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3/betterupdater-manifest.json",
-        "download_count": 13
+        "download_count": 14
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.3/betterupdater-manifest.json.sig",
-        "download_count": 13
+        "download_count": 14
       }
     ]
   },
   {
     "tag_name": "v26.2.1",
     "prerelease": false,
+    "published_at": "2026-05-27T21:20:47Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.2.1-20260527231832.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.2.1/BetterCmdTab-26.2.1-20260527231832.dmg",
-        "download_count": 21
+        "download_count": 22
       },
       {
         "name": "BetterCmdTab-26.2.1-20260527231832.zip",
@@ -380,23 +773,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.2.1/betterupdater-manifest.json",
-        "download_count": 5
+        "download_count": 6
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.2.1/betterupdater-manifest.json.sig",
-        "download_count": 4
+        "download_count": 5
       }
     ]
   },
   {
     "tag_name": "v26.2",
     "prerelease": false,
+    "published_at": "2026-05-27T16:38:13Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.2-20260527183553.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.2/BetterCmdTab-26.2-20260527183553.dmg",
-        "download_count": 21
+        "download_count": 23
       },
       {
         "name": "BetterCmdTab-26.2-20260527183553.zip",
@@ -406,23 +800,24 @@
       {
         "name": "betterupdater-manifest.json",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.2/betterupdater-manifest.json",
-        "download_count": 1
+        "download_count": 2
       },
       {
         "name": "betterupdater-manifest.json.sig",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.2/betterupdater-manifest.json.sig",
-        "download_count": 0
+        "download_count": 1
       }
     ]
   },
   {
     "tag_name": "v26.1",
     "prerelease": false,
+    "published_at": "2026-05-26T03:50:07Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.1-20260526054408.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.1/BetterCmdTab-26.1-20260526054408.dmg",
-        "download_count": 113
+        "download_count": 114
       },
       {
         "name": "BetterCmdTab-26.1-20260526054408.zip",
@@ -434,64 +829,68 @@
   {
     "tag_name": "v26.0",
     "prerelease": false,
+    "published_at": "2026-05-24T13:25:42Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.0-20260524152201.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.0/BetterCmdTab-26.0-20260524152201.dmg",
-        "download_count": 92
+        "download_count": 97
       },
       {
         "name": "BetterCmdTab-26.0-20260524152201.zip",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/v26.0/BetterCmdTab-26.0-20260524152201.zip",
-        "download_count": 7
+        "download_count": 8
       }
     ]
   },
   {
     "tag_name": "26.0-beta.3",
     "prerelease": true,
+    "published_at": "2026-05-22T20:55:02Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.0-beta.3-20260522225253.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.0-beta.3/BetterCmdTab-26.0-beta.3-20260522225253.dmg",
-        "download_count": 3
+        "download_count": 6
       },
       {
         "name": "BetterCmdTab-26.0-beta.3-20260522225253.zip",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.0-beta.3/BetterCmdTab-26.0-beta.3-20260522225253.zip",
-        "download_count": 1
+        "download_count": 2
       }
     ]
   },
   {
     "tag_name": "26.0-beta.2",
     "prerelease": true,
+    "published_at": "2026-05-22T20:13:21Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.0-beta.2-20260522221115.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.0-beta.2/BetterCmdTab-26.0-beta.2-20260522221115.dmg",
-        "download_count": 5
+        "download_count": 6
       },
       {
         "name": "BetterCmdTab-26.0-beta.2-20260522221115.zip",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.0-beta.2/BetterCmdTab-26.0-beta.2-20260522221115.zip",
-        "download_count": 2
+        "download_count": 3
       }
     ]
   },
   {
     "tag_name": "26.0-beta.1",
     "prerelease": true,
+    "published_at": "2026-05-22T14:20:42Z",
     "assets": [
       {
         "name": "BetterCmdTab-26.0-beta.1-20260522161733.dmg",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.0-beta.1/BetterCmdTab-26.0-beta.1-20260522161733.dmg",
-        "download_count": 3
+        "download_count": 8
       },
       {
         "name": "BetterCmdTab-26.0-beta.1-20260522161733.zip",
         "browser_download_url": "https://github.com/rokartur/BetterCmdTab/releases/download/26.0-beta.1/BetterCmdTab-26.0-beta.1-20260522161733.zip",
-        "download_count": 1
+        "download_count": 3
       }
     ]
   }
