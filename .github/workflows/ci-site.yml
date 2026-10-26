@@ -147,10 +147,8 @@ jobs:
           [ "$fail" = 0 ] && echo "docs export OK"
           exit $fail
 
-      # GitHub Pages serves the uploaded tree and nothing else, so every
-      # guarantee that a real web server would enforce with a rule has to be a
-      # property of the files themselves. Checking the tree is also the only
-      # option: there is no server here to boot and probe.
+      # web/serve.ts serves this tree as is, so the guarantees below are
+      # properties of the files themselves, checked without booting a server.
       - name: Verify the merged artifact
         run: |
           mkdir -p web/out/docs
@@ -158,16 +156,15 @@ jobs:
           root=web/out
           fail=0
 
-          # Pages answers a URL ending in a slash with <path>/index.html, and
-          # 301s the bare form to it (bare /docs excepted: Cloudflare rewrites it
-          # to /docs/ at the edge). So every sitemap entry must end in a slash
+          # serve.ts answers a URL ending in a slash with <path>/index.html and
+          # 301s the bare form to it. So every sitemap entry must end in a slash
           # AND have that exact file, or the sitemap advertises a redirect or a
-          # 404 — both worse than not listing the page at all.
+          # 404, both worse than not listing the page at all.
           for u in $(grep -o '<loc>[^<]*</loc>' web/public/sitemap.xml \
                      | sed 's|</*loc>||g; s|https://bettercmdtab.app||'); do
             case "$u" in
-              /docs|*/) ;;
-              *) echo "::error::sitemap URL '$u' has no trailing slash — Pages would 301 it"; fail=1; continue;;
+              */) ;;
+              *) echo "::error::sitemap URL '$u' has no trailing slash, serve.ts would 301 it"; fail=1; continue;;
             esac
             test -f "${root}${u%/}/index.html" \
               || { echo "::error::sitemap lists $u but ${root}${u%/}/index.html does not exist"; fail=1; }
@@ -177,19 +174,18 @@ jobs:
           # signal it passes. Same slash rule as above.
           for h in $(grep -oh 'href="/docs[^"]*"' $root/index.html | sed 's|href="||; s|"||' | sort -u); do
             case "$h" in
-              /docs|*/) test -f "${root}${h%/}/index.html" \
+              */) test -f "${root}${h%/}/index.html" \
                     || { echo "::error::marketing page links to $h, which has no page"; fail=1; };;
-              *) echo "::error::marketing page links to $h without a trailing slash (301 on Pages)"; fail=1;;
+              *) echo "::error::marketing page links to $h without a trailing slash (301 in serve.ts)"; fail=1;;
             esac
           done
 
           # Next writes an RSC payload twin holding each page's whole text as
-          # text/plain. Pages cannot send X-Robots-Tag, so robots.txt is the
-          # only thing standing between those and the index.
+          # text/plain; robots.txt keeps crawlers off those.
           grep -q 'Disallow: /\*\.txt\$'   web/public/robots.txt || { echo "::error::robots.txt no longer blocks the RSC payload twins"; fail=1; }
           grep -q 'Allow: /docs/llms.txt'  web/public/robots.txt || { echo "::error::robots.txt no longer allows llms.txt"; fail=1; }
 
-          # The 404 Pages serves for the whole origin, docs included.
+          # serve.ts answers every missing path on the origin, docs included, with it.
           test -f $root/404.html || { echo "::error::404.html missing from the artifact"; fail=1; }
 
           [ "$fail" = 0 ] && echo "merged artifact OK"
@@ -207,7 +203,6 @@ jobs:
             prefix="https://bettercmdtab.app/docs"
             [ "$locale" = en ] || prefix="$prefix/$locale"
             if [ "$slug" != index ]; then url="$prefix/$slug/"
-            elif [ "$locale" = en ]; then url="$prefix"
             else url="$prefix/"; fi
             grep -qF "<loc>$url</loc>" web/public/sitemap.xml \
               || { echo "::error::$url is missing from web/public/sitemap.xml"; fail=1; }

@@ -14,7 +14,9 @@ export default defineConfig({
     tanstackStart({
       pages: [
         { path: "/" },
-        // GitHub Pages serves /404.html for any unknown path, so the not-found
+        { path: "/alttab-alternative/" },
+        { path: "/cmd-tab-mac/" },
+        // serve.ts answers any unknown path with /404.html, so the not-found
         // route is prerendered to that exact filename rather than the default
         // /404/index.html subfolder.
         { path: "/404", prerender: { autoSubfolderIndex: false } },
@@ -30,7 +32,7 @@ export default defineConfig({
     viteReact(),
     babel({ presets: [reactCompilerPreset()] }),
   ],
-  // `out/` is the deployable tree the Pages workflow uploads, so the client
+  // `out/` is the deployable tree serve.ts serves, so the client
   // build owns it outright; the SSR bundle is only a build-time input to the
   // prerender pass and stays out of the artifact.
   environments: {

@@ -2,7 +2,7 @@
 <!--
   Hand-maintained, and guarded from both sides by .github/workflows/ci-site.yml:
   every URL listed here must return 200, and every docs page must be listed.
-  (Keep loc tags out of this comment — CI greps the file for them.)
+  (Keep loc tags out of this comment: CI greps the file for them.)
 
   No <lastmod>/<changefreq>/<priority>: Google ignores the latter two outright,
   and the deploy checks out at depth 1, so nothing in the build knows when a
@@ -10,7 +10,7 @@
   on every redeploy, which is exactly the kind Google learns to distrust.
 
   Every URL ends in a slash, matching `trailingSlash: true` and the canonical
-  tags: that is the form with an index.html behind it, and GitHub Pages 301s
+  tags: that is the form with an index.html behind it, and web/serve.ts 301s
   the bare form to it. A sitemap that lists redirects wastes crawl budget.
 -->
 <urlset
@@ -21,25 +21,32 @@
     <loc>https://bettercmdtab.app/</loc>
     <image:image>
       <image:loc>https://bettercmdtab.app/og.jpeg</image:loc>
-      <image:title>BetterCmdTab — a window switcher and app launcher for macOS</image:title>
+      <image:title>BetterCmdTab, a window switcher and app launcher for macOS</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://bettercmdtab.app/screenshots/preview.jpg</image:loc>
+      <image:loc>https://bettercmdtab.app/screenshots/preview.webp</image:loc>
       <image:title>BetterCmdTab live window previews layout</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://bettercmdtab.app/screenshots/list.jpg</image:loc>
+      <image:loc>https://bettercmdtab.app/screenshots/list.webp</image:loc>
       <image:title>BetterCmdTab classic vertical list layout</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://bettercmdtab.app/screenshots/grid.jpg</image:loc>
+      <image:loc>https://bettercmdtab.app/screenshots/grid.webp</image:loc>
       <image:title>BetterCmdTab grid of app icons layout</image:title>
     </image:image>
   </url>
 
+  <url>
+    <loc>https://bettercmdtab.app/alttab-alternative/</loc>
+  </url>
+  <url>
+    <loc>https://bettercmdtab.app/cmd-tab-mac/</loc>
+  </url>
+
   <!-- Documentation (docs/, built with basePath=/docs into the same origin). -->
   <url>
-    <loc>https://bettercmdtab.app/docs</loc>
+    <loc>https://bettercmdtab.app/docs/</loc>
   </url>
   <url>
     <loc>https://bettercmdtab.app/docs/configuration/</loc>

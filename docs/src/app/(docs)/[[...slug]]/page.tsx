@@ -14,7 +14,7 @@ import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
 import { configReferenceToc } from '@/lib/config-reference';
 import { defaultLocale, localizedSegments, resolveLocalePath } from '@/lib/i18n';
-import { gitConfig } from '@/lib/shared';
+import { appName, gitConfig } from '@/lib/shared';
 import {
   getPageAlternates,
   getPageImageUrl,
@@ -99,20 +99,23 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const page = source.getPage(slugs, locale);
   if (!page) notFound();
 
-  // Each page is reachable as both /docs/x/ and /docs/x (which GitHub Pages
-  // 301s to the first), so it has to name its own canonical or the two split
-  // ranking signals. og:url has no canonical fallback in Next and must be set
-  // too.
+  // og:url has no canonical fallback in Next and must be set too.
   const url = getPageUrl(page);
 
   return {
-    title: page.data.title,
+    // The layout's title.template applies only to segments below it, never to this page.
+    title: { absolute: `${page.data.title} · ${appName}` },
     description: page.data.description,
     alternates: {
       canonical: url,
       languages: getPageAlternates(page),
     },
+    // Next replaces the layout's openGraph object whole, so type and siteName repeat here.
     openGraph: {
+      type: 'article',
+      siteName: appName,
+      title: page.data.title,
+      description: page.data.description,
       url,
       locale: locale === defaultLocale ? 'en_US' : 'pl_PL',
       images: getPageImageUrl(page).url,

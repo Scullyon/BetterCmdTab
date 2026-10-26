@@ -17,28 +17,44 @@ export function Highlights() {
     <section id="features">
       <h2 className="sr-only">Features</h2>
       <div className="grid grid-cols-4 gap-x-7 gap-y-16 text-center max-[860px]:grid-cols-2">
-        <Highlight title="Windows," rest="not just apps">
+        <Highlight
+          title="Windows,"
+          rest="not just apps"
+          text="Every open window gets its own entry, so two Safari windows are two choices."
+        >
           <motion.rect variants={slideIn} x="8" y="3" width="13" height="12.5" rx="3" />
           <motion.g variants={squash(0.05)}>
             <rect x="3" y="8" width="14" height="13" rx="3" className="fill-text" />
             <motion.path variants={draw(0.35, 0.4)} d="M3 12h14" />
           </motion.g>
         </Highlight>
-        <Highlight title="Search and" rest="launch anything">
+        <Highlight
+          title="Search and"
+          rest="launch anything"
+          text="Type a letter to jump, or press / to fuzzy-search windows and launch any installed app."
+        >
           <motion.g variants={wiggle}>
             <motion.path variants={draw(0, 0.6)} d="M11 3a8 8 0 1 1 0 16a8 8 0 1 1 0-16" />
             <motion.path variants={draw(0.35, 0.3)} d="M16.8 16.8 21 21" />
             <motion.path variants={spinIn} d="M11 8v6M8 11h6" />
           </motion.g>
         </Highlight>
-        <Highlight title="Browser tab" rest="drill-in">
+        <Highlight
+          title="Browser tab"
+          rest="drill-in"
+          text={"Press \\ to pick one tab in Safari, Chrome, Arc, Brave, Edge, Finder or Terminal."}
+        >
           <path d={FRAME_OUTLINE} />
           <path d="M3 8.5h18M9 3v5.5M15 3v5.5" />
           <motion.path variants={tabWalk} d="M17.7 6h0.6" strokeWidth="2" />
           <motion.path variants={draw(0.7, 0.35)} d="M7 13h10" />
           <motion.path variants={draw(0.8, 0.35)} d="M7 16.5h6" />
         </Highlight>
-        <Highlight title="List, grid" rest="or previews">
+        <Highlight
+          title="List, grid"
+          rest="or previews"
+          text="A classic list, a grid of app icons, or live previews of every window."
+        >
           <motion.g variants={quarterTurn(0.35)}>
             {[
               [3, 3],
@@ -58,7 +74,11 @@ export function Highlights() {
             ))}
           </motion.g>
         </Highlight>
-        <Highlight title="Badges and" rest="playing audio">
+        <Highlight
+          title="Badges and"
+          rest="playing audio"
+          text="Dock unread badges and a speaker on the app that is playing sound."
+        >
           <motion.g variants={squash(0)}>
             <path d="M13.5 5h-6A4.5 4.5 0 0 0 3 9.5v7A4.5 4.5 0 0 0 7.5 21h7a4.5 4.5 0 0 0 4.5-4.5v-6" />
             <motion.path variants={bar(0.3)} style={{ originY: 1 }} d="M7.5 17v-3" />
@@ -67,7 +87,11 @@ export function Highlights() {
           </motion.g>
           <motion.circle variants={badge} cx="18.5" cy="5.5" r="2.5" />
         </Highlight>
-        <Highlight title="Every Space," rest="every display">
+        <Highlight
+          title="Every Space,"
+          rest="every display"
+          text="Show all Spaces or only the current one. The switcher opens on the display you work on."
+        >
           <clipPath id="hl-screen-clip">
             <rect x="3.5" y="4.5" width="17" height="11" rx="2" />
           </clipPath>
@@ -77,11 +101,19 @@ export function Highlights() {
             <motion.rect variants={spaceHop} x="6" y="7" width="7" height="5.5" rx="1.4" />
           </g>
         </Highlight>
-        <Highlight title="Tiling and" rest="window moves">
+        <Highlight
+          title="Tiling and"
+          rest="window moves"
+          text="Tile to halves and thirds, maximize, center, or send a window to the next display."
+        >
           <path d={FRAME_OUTLINE} />
           <motion.path variants={tileSplit} d={TILE_SPLIT} />
         </Highlight>
-        <Highlight title="Native and" rest="instant">
+        <Highlight
+          title="Native and"
+          rest="instant"
+          text="A Swift menu-bar app with no Electron and no telemetry. It keeps working in password fields."
+        >
           <motion.path
             variants={commandKey}
             d="M6.72 8.84A2.12 2.12 0 1 1 8.84 6.72V17.28A2.12 2.12 0 1 1 6.72 15.16H17.28A2.12 2.12 0 1 1 15.16 17.28V6.72A2.12 2.12 0 1 1 17.28 8.84Z"
@@ -97,10 +129,12 @@ export function Highlights() {
 function Highlight({
   title,
   rest,
+  text,
   children,
 }: {
   title: string;
   rest: string;
+  text: string;
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -146,6 +180,9 @@ function Highlight({
         <br />
         {rest}
       </h3>
+      <p className="mx-auto mt-2 mb-0 max-w-[250px] text-[15px] leading-[1.45] text-muted max-[520px]:text-[14px]">
+        {text}
+      </p>
     </motion.div>
   );
 }

@@ -3,19 +3,16 @@ import { H2 } from "./tokens";
 
 // Same origin, served by the docs app rather than this static export — plain
 // anchors so the browser does a real navigation instead of the router
-// swallowing it.
-export const DOCS = "/docs";
+// swallowing it. Slash-terminated like every docs URL: serve.ts 301s the bare
+// form, and an internal link should not spend a redirect.
+export const DOCS = "/docs/";
 
-// Paths are relative to DOCS; the quick start is the docs landing page, served
-// as bare /docs by a Cloudflare rewrite. The rest end in a slash to match the
-// docs' canonical URLs
-// — the bare form is a 301 on both deploy targets, and an internal link should
-// not spend a redirect.
+// Paths are relative to DOCS; the quick start is the docs landing page.
 const docsLinks: Array<[string, string, string]> = [
   ["Quick start", "Install, permissions, your first switch", ""],
-  ["Config file", "How the live two-way sync works", "/configuration/"],
-  ["Config reference", "Every key, with types and defaults", "/config-reference/"],
-  ["Per-shortcut overrides", "A different switcher on every hotkey", "/overrides/"],
+  ["Config file", "How the live two-way sync works", "configuration/"],
+  ["Config reference", "Every key, with types and defaults", "config-reference/"],
+  ["Per-shortcut overrides", "A different switcher on every hotkey", "overrides/"],
 ];
 
 export function Docs() {

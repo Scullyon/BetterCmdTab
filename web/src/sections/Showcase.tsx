@@ -4,8 +4,8 @@ import { createPortal } from "react-dom";
 
 import { EASE } from "./tokens";
 
-// The first entry is what layout.tsx preloads, so the LCP image is already in
-// flight before this mounts, so keep the two in sync.
+// The first entry is the LCP image: its fetchPriority=high <img> makes React's SSR
+// emit a <link rel="preload"> for it in the prerendered <head>.
 const layouts = [
   {
     id: "previews",
@@ -140,8 +140,7 @@ export function Showcase() {
                   : "scale-[0.96] cursor-pointer opacity-35 hover:opacity-60"
               }`}
             >
-              {/* The first one is the LCP image layout.tsx preloads at
-                  fetchpriority=high; nothing here may hide or defer it. */}
+              {/* The first one is the preloaded LCP image; nothing here may hide or defer it. */}
               {i <= reach && (
                 <img
                   src={l.src}

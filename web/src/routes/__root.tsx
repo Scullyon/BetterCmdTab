@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 
-const SITE = "https://bettercmdtab.app";
+export const SITE = "https://bettercmdtab.app";
 // Under ~50 chars: Google cut the previous 58-char title at "for ...".
 const TITLE = "BetterCmdTab: Cmd+Tab Window Switcher for macOS";
 // Under ~155 chars so Google shows it whole instead of rewriting it.
@@ -67,20 +67,12 @@ const meta = [
 
 const links = [
   { rel: "stylesheet", href: appCss },
-  { rel: "canonical", href: `${SITE}/` },
-  { rel: "alternate", hrefLang: "en", href: `${SITE}/` },
-  { rel: "alternate", hrefLang: "x-default", href: `${SITE}/` },
   { rel: "icon", href: "/favicon-32.png", type: "image/png", sizes: "32x32" },
   { rel: "icon", href: "/favicon-16.png", type: "image/png", sizes: "16x16" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
   { rel: "manifest", href: "/site.webmanifest" },
 ];
 
-// Kept in sync with the on-page FAQ in app/page.tsx. Google restricted FAQ
-// rich results to authoritative government and health sites in 2023, so this
-// no longer buys a search result — it stays because it is the machine-readable
-// form of the page for LLM and non-Google consumers. Matching the visible text
-// is the honest thing to do, not a byte-for-byte contract worth bleeding over.
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -91,10 +83,12 @@ const jsonLd = {
       alternateName: "Better Cmd Tab",
       description:
         "A fast, native Cmd+Tab replacement for macOS: a window switcher and app launcher with grid & list layouts, fuzzy search, window cycling, and zero telemetry.",
-      // Trailing slash, matching the canonical Next emits under
-      // `trailingSlash: true` and the sitemap entry — one spelling of the
-      // homepage across every surface.
+      // Trailing slash, matching the canonical tag and the sitemap entry.
       url: `${SITE}/`,
+      sameAs: [
+        "https://github.com/rokartur/BetterCmdTab",
+        "https://formulae.brew.sh/cask/bettercmdtab",
+      ],
       applicationCategory: "UtilitiesApplication",
       applicationSubCategory: "Window Manager",
       operatingSystem: "macOS 13.0 or later (Apple Silicon & Intel)",
@@ -106,14 +100,18 @@ const jsonLd = {
       softwareHelp: "https://github.com/rokartur/BetterCmdTab",
       license: "https://github.com/rokartur/BetterCmdTab/blob/main/LICENSE",
       image: `${SITE}/og.jpeg`,
-      screenshot: [`${SITE}/screenshots/list.jpg`, `${SITE}/screenshots/grid.jpg`],
+      screenshot: [
+        `${SITE}/screenshots/preview.webp`,
+        `${SITE}/screenshots/grid.webp`,
+        `${SITE}/screenshots/list.webp`,
+      ],
       featureList: [
         "List, grid-of-icons, and live window-preview layouts",
         "Window titles under each icon in grid and preview",
         "Letter-prefix jump to any app",
         "Fuzzy search and launch any installed app",
         "Cycle windows of the front app with Cmd+`",
-        "Scoped shortcuts — all windows, this Space, current app, or minimized",
+        "Scoped shortcuts: all windows, this Space, current app, or minimized",
         "Tap to switch instantly or hold to open the switcher",
         "Scroll the mouse wheel to move through apps",
         "Per-app global hotkeys to focus or launch",
@@ -131,10 +129,10 @@ const jsonLd = {
         "Cmd+Tab survives Secure Event Input in password fields",
         "Hide the switcher from screen sharing and recordings",
         "Panel theming with opacity, corner radius, and accent color",
-        "Multi-monitor aware — opens under the cursor",
+        "Multi-monitor aware, opens under the cursor",
         "Three-finger trackpad gestures with haptics",
         "Export and import your whole setup as a .cmdtab file",
-        "Menu-bar agent — no Dock icon, no Electron, zero telemetry",
+        "Menu-bar agent with no Dock icon, no Electron, zero telemetry",
       ],
       offers: {
         "@type": "Offer",
@@ -183,10 +181,8 @@ export const Route = createRootRoute({
     meta,
     links: [
       ...links,
-      // LCP is the featured first screenshot, so preload it and let the <img>
-      // mark itself fetchpriority=high; the rest warm up the release lookup
-      // the page fires on mount.
-      { rel: "preload", as: "image", href: "/screenshots/preview.webp", fetchPriority: "high" },
+      // Warm up the release lookup the page fires on mount. The LCP screenshot's
+      // preload comes from React's SSR, see Showcase.tsx.
       { rel: "preconnect", href: "https://api.github.com", crossOrigin: "" },
       { rel: "dns-prefetch", href: "https://api.github.com" },
       { rel: "dns-prefetch", href: "https://objects.githubusercontent.com" },
@@ -198,7 +194,7 @@ export const Route = createRootRoute({
 });
 
 // Rendered two ways that have to agree: prerendered into out/client/404.html
-// via the `/404` route (GitHub Pages serves that file for any unknown path),
+// via the `/404` route (serve.ts answers any unknown path with that file),
 // and again by the router once the SPA hydrates on that same unknown path.
 export function NotFound() {
   return (
@@ -208,7 +204,7 @@ export function NotFound() {
         This page does not exist.
       </h1>
       <p className="m-0 text-[15px] text-muted">
-        <a href="/">Back to BetterCmdTab</a> · <a href="/docs">Documentation</a>
+        <a href="/">Back to BetterCmdTab</a> · <a href="/docs/">Documentation</a>
       </p>
     </main>
   );

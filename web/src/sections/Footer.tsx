@@ -24,6 +24,8 @@ export function BetterAudioCard() {
           alt=""
           width={32}
           height={32}
+          // Lazy, or React's SSR preloads it and the LCP screenshot shares bandwidth.
+          loading="lazy"
           decoding="async"
         />
         <span className="flex flex-col">
@@ -46,7 +48,9 @@ export function BetterAudioCard() {
 const footerLinks: Array<[string, string]> = [
   ["Changelog", `${REPO}/releases`],
   ["Documentation", DOCS],
-  ["Config reference", `${DOCS}/config-reference/`],
+  ["Config reference", `${DOCS}config-reference/`],
+  ["AltTab alternative", "/alttab-alternative/"],
+  ["⌘Tab on Mac, explained", "/cmd-tab-mac/"],
   ["Report an issue", `${REPO}/issues`],
   ["License", `${REPO}/blob/main/LICENSE`],
 ];

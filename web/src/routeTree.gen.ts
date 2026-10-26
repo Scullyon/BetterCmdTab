@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as R404RouteImport } from './routes/404'
+import { Route as AlttabAlternativeRouteImport } from './routes/alttab-alternative'
+import { Route as CmdTabMacRouteImport } from './routes/cmd-tab-mac'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +24,49 @@ const R404Route = R404RouteImport.update({
   path: '/404',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AlttabAlternativeRoute = AlttabAlternativeRouteImport.update({
+  id: '/alttab-alternative',
+  path: '/alttab-alternative',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CmdTabMacRoute = CmdTabMacRouteImport.update({
+  id: '/cmd-tab-mac',
+  path: '/cmd-tab-mac',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/404': typeof R404Route
+  '/alttab-alternative': typeof AlttabAlternativeRoute
+  '/cmd-tab-mac': typeof CmdTabMacRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/404': typeof R404Route
+  '/alttab-alternative': typeof AlttabAlternativeRoute
+  '/cmd-tab-mac': typeof CmdTabMacRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/404': typeof R404Route
+  '/alttab-alternative': typeof AlttabAlternativeRoute
+  '/cmd-tab-mac': typeof CmdTabMacRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/404'
+  fullPaths: '/' | '/404' | '/alttab-alternative' | '/cmd-tab-mac'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/404'
-  id: '__root__' | '/' | '/404'
+  to: '/' | '/404' | '/alttab-alternative' | '/cmd-tab-mac'
+  id: '__root__' | '/' | '/404' | '/alttab-alternative' | '/cmd-tab-mac'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R404Route: typeof R404Route
+  AlttabAlternativeRoute: typeof AlttabAlternativeRoute
+  CmdTabMacRoute: typeof CmdTabMacRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +85,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof R404RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/alttab-alternative': {
+      id: '/alttab-alternative'
+      path: '/alttab-alternative'
+      fullPath: '/alttab-alternative'
+      preLoaderRoute: typeof AlttabAlternativeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cmd-tab-mac': {
+      id: '/cmd-tab-mac'
+      path: '/cmd-tab-mac'
+      fullPath: '/cmd-tab-mac'
+      preLoaderRoute: typeof CmdTabMacRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R404Route: R404Route,
+  AlttabAlternativeRoute: AlttabAlternativeRoute,
+  CmdTabMacRoute: CmdTabMacRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

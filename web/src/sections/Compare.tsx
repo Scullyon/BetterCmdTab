@@ -243,6 +243,14 @@ export function Compare() {
           ))}
         </table>
       </div>
+      <p className="mt-5 mb-0 text-[12px] text-muted">
+        Checked October 2026 · Source:{" "}
+        <a href="https://alt-tab.app/pricing" className="text-muted">
+          alt-tab.app/pricing
+        </a>
+        <br />
+        AltTab Pro $9.99 one-time, or $24.99 for Pro Lifetime with every future update
+      </p>
     </section>
   );
 }

@@ -5,7 +5,7 @@ export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://bettercmdtab
 
 /**
  * Marketing site, linked from the docs nav. Absolute so it escapes /docs, and
- * slash-terminated because GitHub Pages 301s the bare form.
+ * slash-terminated because web/serve.ts 301s the bare form.
  */
 export const homeUrl = 'https://bettercmdtab.app/';
 
