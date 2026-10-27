@@ -1,6 +1,7 @@
 import AppKit
 import Combine
 import Foundation
+import os
 
 enum SwitcherLayoutMode: String, CaseIterable {
     case list
@@ -2402,11 +2403,11 @@ final class Preferences: ObservableObject {
     }
 
     static func clampDelay(_ value: Int) -> Int {
-        min(revealDelayRange.upperBound, max(revealDelayRange.lowerBound, value))
+        value.clamped(to: revealDelayRange)
     }
 
     static func clampLetterChainTimeout(_ value: Int) -> Int {
-        min(letterChainTimeoutRange.upperBound, max(letterChainTimeoutRange.lowerBound, value))
+        value.clamped(to: letterChainTimeoutRange)
     }
 
     /// Preserve the user's order while enforcing the one-app/one-letter
@@ -2432,19 +2433,19 @@ final class Preferences: ObservableObject {
     }
 
     static func clampTitleRefreshInterval(_ value: Int) -> Int {
-        min(titleRefreshIntervalRange.upperBound, max(titleRefreshIntervalRange.lowerBound, value))
+        value.clamped(to: titleRefreshIntervalRange)
     }
 
     static func clampSwipeSensitivity(_ value: Int) -> Int {
-        min(swipeSensitivityRange.upperBound, max(swipeSensitivityRange.lowerBound, value))
+        value.clamped(to: swipeSensitivityRange)
     }
 
     static func clampSwipeFingerCount(_ value: Int) -> Int {
-        min(swipeFingerCountRange.upperBound, max(swipeFingerCountRange.lowerBound, value))
+        value.clamped(to: swipeFingerCountRange)
     }
 
     nonisolated static func clampPanelScalePercent(_ value: Int) -> Int {
-        min(panelScalePercentRange.upperBound, max(panelScalePercentRange.lowerBound, value))
+        value.clamped(to: panelScalePercentRange)
     }
 
     /// Convert the three pre-#105 persisted presets to their effective
@@ -2558,37 +2559,50 @@ final class Preferences: ObservableObject {
         return defaultPanelScalePercent
     }
 
+    /// Writes the clamped value back like `loadPanelScalePercent`: when the clamp leaves the
+    /// published value unchanged, didSet skips its write and exports would keep the bad one.
+    private static func loadClamped(_ key: String, default fallback: Int, clamp: (Int) -> Int,
+                                    from defaults: UserDefaults) -> Int {
+        guard let stored = defaults.object(forKey: key) as? Int else { return clamp(fallback) }
+        let clamped = clamp(stored)
+        if clamped != stored {
+            Log.config.info("\(key, privacy: .public) \(stored) is out of range, stored \(clamped)")
+            defaults.set(clamped, forKey: key)
+        }
+        return clamped
+    }
+
     static func clampOpacity(_ value: Int) -> Int {
-        min(panelOpacityRange.upperBound, max(panelOpacityRange.lowerBound, value))
+        value.clamped(to: panelOpacityRange)
     }
 
     static func clampCornerRadius(_ value: Int) -> Int {
-        min(panelCornerRadiusRange.upperBound, max(panelCornerRadiusRange.lowerBound, value))
+        value.clamped(to: panelCornerRadiusRange)
     }
 
     static func clampFadeDuration(_ value: Int) -> Int {
-        min(fadeDurationRange.upperBound, max(fadeDurationRange.lowerBound, value))
+        value.clamped(to: fadeDurationRange)
     }
 
     static func clampGridColumns(_ value: Int) -> Int {
-        min(gridMaxColumnsRange.upperBound, max(gridMaxColumnsRange.lowerBound, value))
+        value.clamped(to: gridMaxColumnsRange)
     }
 
     nonisolated static func clampListWidthPercent(_ value: Int) -> Int {
-        min(listWidthPercentRange.upperBound, max(listWidthPercentRange.lowerBound, value))
+        value.clamped(to: listWidthPercentRange)
     }
 
     nonisolated static func clampTopOffsetPercent(_ value: Int) -> Int {
-        min(topOffsetPercentRange.upperBound, max(topOffsetPercentRange.lowerBound, value))
+        value.clamped(to: topOffsetPercentRange)
     }
 
     static func clampRecentlyClosedLimit(_ value: Int) -> Int {
-        min(recentlyClosedLimitRange.upperBound, max(recentlyClosedLimitRange.lowerBound, value))
+        value.clamped(to: recentlyClosedLimitRange)
     }
 
     /// `<= 0` normalizes to `0` (unlimited); anything else snaps into 2…16.
     static func clampBrowserTabRowLimit(_ value: Int) -> Int {
-        value <= 0 ? 0 : min(browserTabRowLimitRange.upperBound, max(browserTabRowLimitRange.lowerBound, value))
+        value <= 0 ? 0 : value.clamped(to: browserTabRowLimitRange)
     }
 
     /// A preference that graduated out of the Experimental pane. Each one keeps
@@ -2884,18 +2898,18 @@ final class Preferences: ObservableObject {
         movePointerAcrossDisplays = defaults.bool(forKey: Keys.movePointerAcrossDisplays)
         verticalPosition = defaults.string(forKey: Keys.verticalPosition)
             .flatMap(SwitcherVerticalPosition.init(rawValue:)) ?? .center
-        topOffsetPercent = Self.clampTopOffsetPercent(defaults.object(forKey: Keys.topOffsetPercent) as? Int ?? Self.defaultTopOffsetPercent)
+        topOffsetPercent = Self.loadClamped(Keys.topOffsetPercent, default: Self.defaultTopOffsetPercent, clamp: Self.clampTopOffsetPercent, from: defaults)
         sortOrder = defaults.string(forKey: Keys.sortOrder).flatMap(SwitcherSortOrder.init(rawValue:)) ?? .mru
         initialSelection = defaults.string(forKey: Keys.initialSelection).flatMap(InitialSelection.init(rawValue:)) ?? .nextApp
-        revealDelayMs = Self.clampDelay(defaults.object(forKey: Keys.revealDelayMs) as? Int ?? Self.defaultRevealDelayMs)
-        letterChainTimeoutMs = Self.clampLetterChainTimeout(defaults.object(forKey: Keys.letterChainTimeoutMs) as? Int ?? Self.defaultLetterChainTimeoutMs)
-        titleRefreshIntervalMs = Self.clampTitleRefreshInterval(defaults.object(forKey: Keys.titleRefreshIntervalMs) as? Int ?? Self.defaultTitleRefreshIntervalMs)
+        revealDelayMs = Self.loadClamped(Keys.revealDelayMs, default: Self.defaultRevealDelayMs, clamp: Self.clampDelay, from: defaults)
+        letterChainTimeoutMs = Self.loadClamped(Keys.letterChainTimeoutMs, default: Self.defaultLetterChainTimeoutMs, clamp: Self.clampLetterChainTimeout, from: defaults)
+        titleRefreshIntervalMs = Self.loadClamped(Keys.titleRefreshIntervalMs, default: Self.defaultTitleRefreshIntervalMs, clamp: Self.clampTitleRefreshInterval, from: defaults)
         panelScalePercent = Self.loadPanelScalePercent(defaults)
         panelAppearance = defaults.string(forKey: Keys.panelAppearance)
             .flatMap(PanelAppearance.init(rawValue:)) ?? .system
         fontScale = defaults.string(forKey: Keys.fontScale).flatMap(SwitcherFontScale.init(rawValue:)) ?? .standard
         fontFace = defaults.string(forKey: Keys.fontFace).flatMap(SwitcherFontFace.init(rawValue:)) ?? .system
-        gridMaxColumns = defaults.object(forKey: Keys.gridMaxColumns) as? Int ?? 0
+        gridMaxColumns = Self.loadClamped(Keys.gridMaxColumns, default: 0, clamp: Self.clampGridColumns, from: defaults)
         gridSingleRow = defaults.object(forKey: Keys.gridSingleRow) as? Bool ?? true
 
         if let stored = defaults.array(forKey: Keys.appExceptions) as? [[String: String]] {
@@ -2931,7 +2945,7 @@ final class Preferences: ObservableObject {
         fuzzySearchRankBestMatchFirst = defaults.object(forKey: Keys.fuzzySearchRankBestMatchFirst) as? Bool ?? false
         searchExpandsBrowserTabs = defaults.object(forKey: Keys.searchExpandsBrowserTabs) as? Bool ?? false
         showRecentlyClosed = defaults.object(forKey: Keys.showRecentlyClosed) as? Bool ?? false
-        recentlyClosedLimit = defaults.object(forKey: Keys.recentlyClosedLimit) as? Int ?? 5
+        recentlyClosedLimit = Self.loadClamped(Keys.recentlyClosedLimit, default: 5, clamp: Self.clampRecentlyClosedLimit, from: defaults)
 
         hapticOnCommit = defaults.object(forKey: Keys.hapticOnCommit) as? Bool ?? false
         soundOnCommit = defaults.object(forKey: Keys.soundOnCommit) as? Bool ?? false
@@ -2943,8 +2957,8 @@ final class Preferences: ObservableObject {
         swipeMode = defaults.string(forKey: Keys.swipeMode).flatMap(SwipeMode.init(rawValue:)) ?? .openSwitcher
         swipeReverseDirection = defaults.object(forKey: Keys.swipeReverseDirection) as? Bool ?? false
         swipeCommitOnRelease = defaults.object(forKey: Keys.swipeCommitOnRelease) as? Bool ?? false
-        swipeSensitivity = Self.clampSwipeSensitivity(defaults.object(forKey: Keys.swipeSensitivity) as? Int ?? Self.defaultSwipeSensitivity)
-        swipeFingerCount = Self.clampSwipeFingerCount(defaults.object(forKey: Keys.swipeFingerCount) as? Int ?? Self.defaultSwipeFingerCount)
+        swipeSensitivity = Self.loadClamped(Keys.swipeSensitivity, default: Self.defaultSwipeSensitivity, clamp: Self.clampSwipeSensitivity, from: defaults)
+        swipeFingerCount = Self.loadClamped(Keys.swipeFingerCount, default: Self.defaultSwipeFingerCount, clamp: Self.clampSwipeFingerCount, from: defaults)
         scrollToSwitch = defaults.object(forKey: Keys.scrollToSwitch) as? Bool ?? true
         scrollReverseDirection = defaults.object(forKey: Keys.scrollReverseDirection) as? Bool ?? false
         clickOutsideToDismiss = defaults.object(forKey: Keys.clickOutsideToDismiss) as? Bool ?? true
@@ -2965,7 +2979,7 @@ final class Preferences: ObservableObject {
         handoffPlacement = defaults.string(forKey: Keys.handoffPlacement).flatMap(HandoffPlacement.init(rawValue:)) ?? .off
         expandTabsAsWindows = defaults.object(forKey: Keys.expandTabsAsWindows) as? Bool ?? false
         expandBrowserTabsAsWindows = defaults.object(forKey: Keys.expandBrowserTabsAsWindows) as? Bool ?? false
-        browserTabRowLimit = defaults.object(forKey: Keys.browserTabRowLimit) as? Int ?? 0
+        browserTabRowLimit = Self.loadClamped(Keys.browserTabRowLimit, default: 0, clamp: Self.clampBrowserTabRowLimit, from: defaults)
         showBrowserIconOnTabs = defaults.object(forKey: Keys.showBrowserIconOnTabs) as? Bool ?? false
         browserTabMRU = Self.stored(.browserTabMRU, defaults)
         browserTabPreviews = Self.stored(.browserTabPreviews, defaults)
@@ -2978,9 +2992,9 @@ final class Preferences: ObservableObject {
         previewTitleAlignment = defaults.string(forKey: Keys.previewTitleAlignment).flatMap(PreviewTitleAlignment.init(rawValue:)) ?? .center
         titleTruncationMode = defaults.string(forKey: Keys.titleTruncationMode).flatMap(TitleTruncationMode.init(rawValue:)) ?? .tail
         boldSelectedLabel = defaults.object(forKey: Keys.boldSelectedLabel) as? Bool ?? true
-        panelOpacity = Self.clampOpacity(defaults.object(forKey: Keys.panelOpacity) as? Int ?? 100)
-        panelCornerRadius = Self.clampCornerRadius(defaults.object(forKey: Keys.panelCornerRadius) as? Int ?? 0)
-        listWidthPercent = Self.clampListWidthPercent(defaults.object(forKey: Keys.listWidthPercent) as? Int ?? 100)
+        panelOpacity = Self.loadClamped(Keys.panelOpacity, default: 100, clamp: Self.clampOpacity, from: defaults)
+        panelCornerRadius = Self.loadClamped(Keys.panelCornerRadius, default: 0, clamp: Self.clampCornerRadius, from: defaults)
+        listWidthPercent = Self.loadClamped(Keys.listWidthPercent, default: 100, clamp: Self.clampListWidthPercent, from: defaults)
         backdropMaterial = defaults.string(forKey: Keys.backdropMaterial).flatMap(BackdropMaterial.init(rawValue:)) ?? .hud
         selectionColor = defaults.string(forKey: Keys.selectionColor).flatMap(SwitcherSelectionColor.init(rawValue:)) ?? .transparent
         selectionColorHex = defaults.string(forKey: Keys.selectionColorHex)
@@ -3010,7 +3024,13 @@ final class Preferences: ObservableObject {
         hoverShowForceQuit = defaults.object(forKey: Keys.hoverShowForceQuit) as? Bool ?? false
         hideFromScreenSharing = defaults.object(forKey: Keys.hideFromScreenSharing) as? Bool ?? false
         animationsEnabled = defaults.object(forKey: Keys.animationsEnabled) as? Bool ?? true
-        fadeInDurationMs = Self.clampFadeDuration(defaults.object(forKey: Keys.fadeInDurationMs) as? Int ?? 0)
-        fadeOutDurationMs = Self.clampFadeDuration(defaults.object(forKey: Keys.fadeOutDurationMs) as? Int ?? 0)
+        fadeInDurationMs = Self.loadClamped(Keys.fadeInDurationMs, default: 0, clamp: Self.clampFadeDuration, from: defaults)
+        fadeOutDurationMs = Self.loadClamped(Keys.fadeOutDurationMs, default: 0, clamp: Self.clampFadeDuration, from: defaults)
+    }
+}
+
+extension Comparable {
+    func clamped(to range: ClosedRange<Self>) -> Self {
+        min(range.upperBound, max(range.lowerBound, self))
     }
 }
