@@ -11,24 +11,31 @@ import Foundation
 /// round-trips but always converges on the latest state.
 struct FocusSyncCoalescer {
     private var inFlight: Set<pid_t> = []
-    private var pending: Set<pid_t> = []
+    /// Latched changes, keyed by pid, holding the stamp of the newest one so the
+    /// re-run records the window at the time the change happened.
+    private var pending: [pid_t: UInt64] = [:]
 
-    /// A focus change arrived for `pid`. Returns true when the caller should
-    /// start a resolve; false when one is already in flight (the change is
-    /// latched and `finish` will ask for a re-run).
-    mutating func begin(_ pid: pid_t) -> Bool {
+    /// A focus change stamped `stamp` arrived for `pid`. Returns true when the
+    /// caller should start a resolve; false when one is already in flight (the
+    /// change is latched and `finish` will ask for a re-run).
+    mutating func begin(_ pid: pid_t, at stamp: UInt64) -> Bool {
         guard !inFlight.contains(pid) else {
-            pending.insert(pid)
+            pending[pid] = max(pending[pid] ?? 0, stamp)
             return false
         }
         inFlight.insert(pid)
         return true
     }
 
-    /// The in-flight resolve for `pid` landed. Returns true when another focus
-    /// change arrived mid-flight and the caller should resolve again.
-    mutating func finish(_ pid: pid_t) -> Bool {
+    /// True when a change for `pid` arrived while its resolve was in flight.
+    func hasPending(_ pid: pid_t) -> Bool {
+        pending[pid] != nil
+    }
+
+    /// The in-flight resolve for `pid` landed. Returns the stamp of the newest
+    /// change that arrived mid-flight when the caller should resolve again.
+    mutating func finish(_ pid: pid_t) -> UInt64? {
         inFlight.remove(pid)
-        return pending.remove(pid) != nil
+        return pending.removeValue(forKey: pid)
     }
 }

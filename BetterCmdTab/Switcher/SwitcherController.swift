@@ -591,6 +591,7 @@ final class SwitcherController: SwitcherViewDelegate {
                 if let pid, pid != selfPid {
                     self.mru.bump(pid)
                     self.handleFocusChange(pid: pid)
+                    self.scheduleActivationSettleCheck(pid: pid)
                 }
                 self.updateTriggerSuppression()
             }
@@ -2817,6 +2818,26 @@ final class SwitcherController: SwitcherViewDelegate {
         (count > 1 && firstRowPid != nil && firstRowPid == frontPid) ? 1 : 0
     }
 
+    /// Pure: initial selection under `.mruWindows`, `step` taps from the current
+    /// window. Row 0 is the current window only when it belongs to the frontmost
+    /// app. When it does not, the current window is not in the list (the app has
+    /// no windows or a rule hides it, e.g. Finder after a click on the desktop),
+    /// so a forward tap starts on row 0, the previous window, instead of skipping
+    /// it and landing on another app.
+    nonisolated static func windowMRUInitialIndex(step: Int, count: Int, currentWindowLeads: Bool) -> Int {
+        guard count > 0 else { return 0 }
+        let offset = (!currentWindowLeads && step > 0) ? step - 1 : step
+        return ((offset % count) + count) % count
+    }
+
+    /// Whether row 0 can be taken as the current window for
+    /// `windowMRUInitialIndex`. Pinned apps lead the list whatever was focused,
+    /// so with any pin the list keeps stepping from row 0 as before.
+    private func currentWindowLeads(_ rows: [SwitcherRow], frontPid: pid_t?) -> Bool {
+        guard Preferences.shared.pinnedBundleIDs.isEmpty else { return true }
+        return rows.first?.pid != nil && rows.first?.pid == frontPid
+    }
+
     /// Position of the frontmost app in `primedApps` for sorts that anchor on
     /// it; nil under MRU sorts (frontmost already leads the list) or when the
     /// frontmost app was filtered out of the primed list.
@@ -3256,6 +3277,7 @@ final class SwitcherController: SwitcherViewDelegate {
               front.pid != selfPid else { return }
         let pid = front.pid
         let need = captureNeed
+        let stamp = windowMRU.makeStamp()
         focusedWindowCaptureGen &+= 1
         let gen = focusedWindowCaptureGen
         DispatchQueue.global(qos: .userInteractive).async {
@@ -3277,7 +3299,7 @@ final class SwitcherController: SwitcherViewDelegate {
                 // (`.idle`): the commit already bumped its target, and a late
                 // stale anchor must not outrank it.
                 if wid != 0, self.phase != .idle {
-                    self.windowMRU.bump(pid: pid, wid: wid)
+                    self.windowMRU.bump(pid: pid, wid: wid, at: stamp)
                     self.recaptureLeavingWindow(wid)
                 }
                 // `.primed` only: reveal() consumes + nils this and flips to
@@ -3368,6 +3390,7 @@ final class SwitcherController: SwitcherViewDelegate {
             }
         }
         if openFocusedWindow == nil, let pid = userPid {
+            let stamp = windowMRU.makeStamp()
             focusedWindowCaptureGen &+= 1
             let gen = focusedWindowCaptureGen
             DispatchQueue.global(qos: .userInteractive).async {
@@ -3381,7 +3404,7 @@ final class SwitcherController: SwitcherViewDelegate {
                     // Same MRU self-heal as the primed prefetch (#85) — this
                     // branch serves gesture/scoped opens, which skip it.
                     if wid != 0, self.phase != .idle {
-                        self.windowMRU.bump(pid: pid, wid: wid)
+                        self.windowMRU.bump(pid: pid, wid: wid, at: stamp)
                         self.recaptureLeavingWindow(wid)
                     }
                     // Ahead of the window-capture guard on purpose: which display
@@ -3446,7 +3469,9 @@ final class SwitcherController: SwitcherViewDelegate {
                 // Window-level list: step over rows by window recency, not apps.
                 // `primedStepDelta` taps from row 0 (the current window), so a
                 // single forward tap lands on the second-most-recent window.
-                index = ((primedStepDelta % rows.count) + rows.count) % rows.count
+                index = Self.windowMRUInitialIndex(
+                    step: primedStepDelta, count: rows.count,
+                    currentWindowLeads: currentWindowLeads(rows, frontPid: previousFrontmostApp?.pid))
             } else if let pid = eligiblePrimedApp(in: cachedRows, scope: activeFilterConfig?.spaceScope ?? Preferences.storedSpaceScope(.standard))?.pid ?? targetPid,
                       let match = rows.firstIndex(where: { $0.pid == pid }) {
                 // Space remap, as commit() does, so a held panel selects the app a quick tap would.
@@ -3947,11 +3972,19 @@ final class SwitcherController: SwitcherViewDelegate {
     private var focusSyncTokens: [pid_t: UInt64] = [:]
     private var nextFocusSyncToken: UInt64 = 0
 
+    /// Delays before re-reading a focused window that came back empty. An app
+    /// that was just clicked is often still busy handling the activation and
+    /// misses the first read's 50 ms timeout; without a retry the switch is never
+    /// recorded and ⌘Tab later lands on the wrong window.
+    private static let focusResolveRetryDelays: [TimeInterval] = [0.1, 0.3]
+
     /// React to a focus change without blocking the main thread: resolve the
     /// pid's focused window off-main (the AX query can stall on an unresponsive
-    /// app), then bump the window MRU on main. Coalesced per pid.
-    private func handleFocusChange(pid: pid_t) {
-        guard focusSync.begin(pid) else { return }
+    /// app), then bump the window MRU on main. Coalesced per pid. `stamp` is when
+    /// the change happened; nil means now.
+    private func handleFocusChange(pid: pid_t, at stamp: UInt64? = nil) {
+        let stamp = stamp ?? windowMRU.makeStamp()
+        guard focusSync.begin(pid, at: stamp) else { return }
         nextFocusSyncToken &+= 1
         if nextFocusSyncToken == 0 { nextFocusSyncToken = 1 }
         let token = nextFocusSyncToken
@@ -3963,15 +3996,34 @@ final class SwitcherController: SwitcherViewDelegate {
         let feedTabMRU = browserTabMRUEnabled
         let isBrowser = feedTabMRU
             && BrowserTabs.Family.from(bundleID: NSRunningApplication(processIdentifier: pid)?.bundleIdentifier) != nil
-        DispatchQueue.global(qos: .utility).async { [weak self] in
+        resolveFocusedWindow(pid: pid, token: token, stamp: stamp, attempt: 0,
+                             feedTabMRU: feedTabMRU, isBrowser: isBrowser)
+    }
+
+    /// One off-main focused-window read for `handleFocusChange`. An empty result
+    /// retries after `focusResolveRetryDelays` with a longer timeout, keeping the
+    /// pid in flight and the original stamp, unless a newer change for the pid
+    /// is already latched (its re-run reads the current window anyway). An app
+    /// with no windows pays the retries too, off-main.
+    private func resolveFocusedWindow(pid: pid_t, token: UInt64, stamp: UInt64, attempt: Int,
+                                      feedTabMRU: Bool, isBrowser: Bool) {
+        let delay = attempt == 0 ? 0 : Self.focusResolveRetryDelays[attempt - 1]
+        let timeout: Float = attempt == 0 ? 0.05 : 0.25
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + delay) { [weak self] in
             let info = isBrowser ? BrowserTabFocusObserver.focusedWindowInfo(pid: pid) : nil
-            let wid = info?.wid ?? WindowMRUTracker.focusedWindowID(pid: pid)
+            let wid = info?.wid ?? WindowMRUTracker.focusedWindowID(pid: pid, timeout: timeout)
             DispatchQueue.main.async {
                 guard let self else { return }
                 let isCurrent = !self.didShutdown && self.focusSyncTokens[pid] == token
+                if isCurrent, wid == 0, attempt < Self.focusResolveRetryDelays.count,
+                   !self.focusSync.hasPending(pid) {
+                    self.resolveFocusedWindow(pid: pid, token: token, stamp: stamp, attempt: attempt + 1,
+                                              feedTabMRU: feedTabMRU, isBrowser: isBrowser)
+                    return
+                }
                 if isCurrent {
                     self.focusSyncTokens.removeValue(forKey: pid)
-                    if wid != 0 { self.windowMRU.bump(pid: pid, wid: wid) }
+                    if wid != 0 { self.windowMRU.bump(pid: pid, wid: wid, at: stamp) }
                     if feedTabMRU, wid != 0 {
                         if isBrowser, let title = info?.title,
                            !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -3981,10 +4033,30 @@ final class SwitcherController: SwitcherViewDelegate {
                         }
                     }
                 }
-                if self.focusSync.finish(pid), !self.didShutdown {
-                    self.handleFocusChange(pid: pid)
+                if let next = self.focusSync.finish(pid), !self.didShutdown {
+                    self.handleFocusChange(pid: pid, at: next)
                 }
             }
+        }
+    }
+
+    private var activationSettleGeneration: UInt64 = 0
+
+    /// Re-read the focused window shortly after an app activates. When a click
+    /// on one of an app's background windows activates it, the activation can be
+    /// seen before the app moves focus to that window, so the first read returns
+    /// the window it had before; the AX focus notification that corrects it is
+    /// not posted by every app, and is missed for an app whose observer failed to
+    /// install. If the app is still frontmost when the check runs, its focused
+    /// window is the newest one by definition. Only the latest activation is
+    /// checked, so this costs one AX read per app switch, off-main.
+    private func scheduleActivationSettleCheck(pid: pid_t) {
+        activationSettleGeneration &+= 1
+        let gen = activationSettleGeneration
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            guard let self, gen == self.activationSettleGeneration, !self.didShutdown,
+                  NSWorkspace.shared.frontmostApplication?.pid == pid else { return }
+            self.handleFocusChange(pid: pid)
         }
     }
 
@@ -4508,7 +4580,10 @@ final class SwitcherController: SwitcherViewDelegate {
             applyApplicationsOnly(applyWindowMRUSort(cache.rows(orderedBy: mru.order, filter: activeFilterConfig)))
         }
         guard !sorted.isEmpty else { return nil }
-        let idx = ((primedStepDelta % sorted.count) + sorted.count) % sorted.count
+        // The panel never presented, so the user's app is still frontmost.
+        let idx = Self.windowMRUInitialIndex(
+            step: primedStepDelta, count: sorted.count,
+            currentWindowLeads: currentWindowLeads(sorted, frontPid: NSWorkspace.shared.frontmostApplication?.pid))
         return sorted[idx]
     }
 

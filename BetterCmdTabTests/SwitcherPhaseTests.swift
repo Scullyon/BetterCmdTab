@@ -106,6 +106,19 @@ struct SwitcherScopedModifierReleaseTests {
         #expect(SwitcherController.scopedInitialIndex(firstRowPid: nil, frontPid: nil, count: 3) == 0)
     }
 
+    @Test func windowRecencyStepsFromTheCurrentWindow() {
+        // The frontmost app's window leads → row 0 is current, one tap goes to row 1.
+        #expect(SwitcherController.windowMRUInitialIndex(step: 1, count: 4, currentWindowLeads: true) == 1)
+        // The current window is not listed (windowless or hidden frontmost app) →
+        // one tap goes to row 0, the previous window, not the one after it.
+        #expect(SwitcherController.windowMRUInitialIndex(step: 1, count: 4, currentWindowLeads: false) == 0)
+        #expect(SwitcherController.windowMRUInitialIndex(step: 2, count: 4, currentWindowLeads: false) == 1)
+        // Stepping backwards wraps to the oldest row either way.
+        #expect(SwitcherController.windowMRUInitialIndex(step: -1, count: 4, currentWindowLeads: false) == 3)
+        #expect(SwitcherController.windowMRUInitialIndex(step: -1, count: 4, currentWindowLeads: true) == 3)
+        #expect(SwitcherController.windowMRUInitialIndex(step: 1, count: 0, currentWindowLeads: false) == 0)
+    }
+
     @Test func scopedOpensNeverTakeThePrimedMissedReleaseCommit() {
         // A core ⌘Tab chord whose ⌘-release was dropped during the primed delay
         // commits the primed pick outright — that pick is correct there.

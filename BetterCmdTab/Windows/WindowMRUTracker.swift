@@ -28,6 +28,13 @@ final class WindowMRUTracker {
     /// reaching `sortRows` are display-filtered, so pruning against them
     /// would erase recency of live windows (see `sortRows(_:by:)`).
     private let perAppCap = 64
+    /// Event stamp of each remembered window's last bump. Focus resolves run
+    /// off-main, retry when the app is busy, and land in no fixed order, so a
+    /// resolve for an earlier focus change can land after a later one. Ordering
+    /// by when the focus changed, not by when its resolve landed, keeps a slow
+    /// app's late result from jumping ahead of a window focused after it.
+    private var stamps: [CGWindowID: UInt64] = [:]
+    private var lastStamp: UInt64 = 0
 
     func start() {
         guard termObserver == nil else { return }
@@ -46,6 +53,7 @@ final class WindowMRUTracker {
                 if let dead = self.order.removeValue(forKey: pid), !dead.isEmpty {
                     let deadSet = Set(dead)
                     self.globalOrder.removeAll { deadSet.contains($0) }
+                    for wid in dead { self.stamps.removeValue(forKey: wid) }
                 }
             }
         }
@@ -62,26 +70,60 @@ final class WindowMRUTracker {
         tearDownOnMainActor { stop() }
     }
 
+    /// A strictly increasing stamp for "now". Capture it when a focus change is
+    /// observed and pass it to `bump(pid:wid:at:)` once the window resolves.
+    func makeStamp() -> UInt64 {
+        lastStamp = max(DispatchTime.now().uptimeNanoseconds, lastStamp &+ 1)
+        return lastStamp
+    }
+
+    /// Record `wid` as focused now.
     func bump(pid: pid_t, wid: CGWindowID) {
+        bump(pid: pid, wid: wid, at: makeStamp())
+    }
+
+    /// Record `wid` as focused at `stamp` (from `makeStamp()`). The window lands
+    /// ahead of every window bumped earlier and behind every window bumped later,
+    /// whatever order the calls arrive in. A stamp older than the window's last
+    /// bump is ignored: a later focus of the same window already placed it.
+    func bump(pid: pid_t, wid: CGWindowID, at stamp: UInt64) {
         guard wid != 0 else { return }
+        if let existing = stamps[wid], existing >= stamp { return }
+        stamps[wid] = stamp
+
         var list = order[pid] ?? []
         list.removeAll { $0 == wid }
-        list.insert(wid, at: 0)
+        list.insert(wid, at: insertionIndex(in: list, for: stamp))
         if list.count > perAppCap { list.removeLast(list.count - perAppCap) }
         order[pid] = list
 
         globalOrder.removeAll { $0 == wid }
-        globalOrder.insert(wid, at: 0)
+        globalOrder.insert(wid, at: insertionIndex(in: globalOrder, for: stamp))
         if globalOrder.count > globalCap { globalOrder.removeLast(globalOrder.count - globalCap) }
+        // Ids evicted by the caps keep their stamp until here. Rebuilding is
+        // O(remembered windows) and only runs once the map has doubled.
+        if stamps.count > 2 * globalCap { pruneStamps() }
+    }
+
+    /// First position whose window was bumped before `stamp`. Index 0 for the
+    /// usual case (the newest event), so the scan normally stops at once.
+    private func insertionIndex(in list: [CGWindowID], for stamp: UInt64) -> Int {
+        list.firstIndex { (stamps[$0] ?? 0) < stamp } ?? list.count
+    }
+
+    private func pruneStamps() {
+        var live = Set(globalOrder)
+        for list in order.values { live.formUnion(list) }
+        stamps = stamps.filter { live.contains($0.key) }
     }
 
     /// Resolve the pid's focused-window CGWindowID via a blocking AX query.
     /// `nonisolated` so callers can run it off the main thread — the AX calls
     /// here can stall for the full messaging timeout if the target app is
     /// unresponsive, which must never happen on the main run loop.
-    nonisolated static func focusedWindowID(pid: pid_t) -> CGWindowID {
+    nonisolated static func focusedWindowID(pid: pid_t, timeout: Float = 0.05) -> CGWindowID {
         let axApp = AXUIElementCreateApplication(pid)
-        AXUIElementSetMessagingTimeout(axApp, 0.05)
+        AXUIElementSetMessagingTimeout(axApp, timeout)
         var focused: AnyObject?
         guard AXUIElementCopyAttributeValue(axApp, kAXFocusedWindowAttribute as CFString, &focused) == .success,
               let focusedVal = focused,

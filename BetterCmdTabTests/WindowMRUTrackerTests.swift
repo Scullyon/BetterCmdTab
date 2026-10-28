@@ -136,6 +136,52 @@ struct WindowMRUTrackerTests {
         #expect(sorted.map(\.cgWindowID) == [10, 0])
     }
 
+    // MARK: - Event-time ordering
+
+    @Test("a late-landing bump sorts by when its focus change happened")
+    func lateBumpSortsByEventTime() {
+        let tracker = WindowMRUTracker()
+        // Focus moves 10 → 20 → 30, but 20's resolve lands last (a busy app).
+        let s10 = tracker.makeStamp()
+        let s20 = tracker.makeStamp()
+        let s30 = tracker.makeStamp()
+        tracker.bump(pid: 1, wid: 10, at: s10)
+        tracker.bump(pid: 3, wid: 30, at: s30)
+        tracker.bump(pid: 2, wid: 20, at: s20)
+        let sorted = tracker.sortRowsGlobally([row(10), row(20), row(30)])
+        #expect(sorted.map(\.cgWindowID) == [30, 20, 10])
+    }
+
+    @Test("a stale bump never demotes a window focused again since")
+    func staleBumpIgnored() {
+        let tracker = WindowMRUTracker()
+        let old = tracker.makeStamp()
+        tracker.bump(pid: 1, wid: 10)
+        tracker.bump(pid: 2, wid: 20)
+        tracker.bump(pid: 1, wid: 10, at: old) // older than 10's last focus
+        let sorted = tracker.sortRowsGlobally([row(10), row(20)])
+        #expect(sorted.map(\.cgWindowID) == [20, 10])
+    }
+
+    @Test("per-app order also sorts by event time")
+    func perAppLateBumpSortsByEventTime() {
+        let tracker = WindowMRUTracker()
+        let s10 = tracker.makeStamp()
+        let s20 = tracker.makeStamp()
+        tracker.bump(pid: 1, wid: 20, at: s20)
+        tracker.bump(pid: 1, wid: 10, at: s10)
+        let sorted = tracker.sortRows([row(10), row(20)], forPid: 1)
+        #expect(sorted.map(\.cgWindowID) == [20, 10])
+    }
+
+    @Test("stamps are strictly increasing")
+    func stampsIncrease() {
+        let tracker = WindowMRUTracker()
+        let a = tracker.makeStamp()
+        let b = tracker.makeStamp()
+        #expect(b > a)
+    }
+
     // MARK: - Per-app run sort (`sortRowsWithinAppRuns`, #83)
 
     @Test("run detection finds maximal same-pid windowed runs of length ≥ 2")
