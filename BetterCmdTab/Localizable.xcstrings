@@ -3328,42 +3328,42 @@
         }
       }
     },
-    "Color of the highlight around the selected window and of the quick-jump letters. Follows your macOS accent by default." : {
+    "Color of the highlight around the selected window and of the quick-jump letters. Green by default." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farbe der Hervorhebung um das ausgewählte Fenster und der Sprungbuchstaben. Folgt standardmäßig deiner macOS-Akzentfarbe."
+            "value" : "Farbe der Hervorhebung um das ausgewählte Fenster und der Sprungbuchstaben. Standardmäßig Grün."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Color del resaltado alrededor de la ventana seleccionada y de las letras de salto rápido. Sigue el color de acento de macOS de forma predeterminada."
+            "value" : "Color del resaltado alrededor de la ventana seleccionada y de las letras de salto rápido. Verde de forma predeterminada."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Couleur de la surbrillance autour de la fenêtre sélectionnée et des lettres de saut rapide. Suit la couleur d'accentuation macOS par défaut."
+            "value" : "Couleur de la surbrillance autour de la fenêtre sélectionnée et des lettres de saut rapide. Vert par défaut."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kolor podświetlenia wokół zaznaczonego okna i liter szybkiego skoku. Domyślnie zgodny z kolorem akcentu macOS."
+            "value" : "Kolor podświetlenia wokół zaznaczonego okna i liter szybkiego skoku. Domyślnie zielony."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Цвет рамки вокруг выбранного окна и букв быстрого перехода. По умолчанию соответствует акцентному цвету macOS."
+            "value" : "Цвет рамки вокруг выбранного окна и букв быстрого перехода. По умолчанию зелёный."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选中窗口周围高亮以及快速跳转字母的颜色。默认跟随 macOS 强调色。"
+            "value" : "选中窗口周围高亮以及快速跳转字母的颜色。默认为绿色。"
           }
         }
       }

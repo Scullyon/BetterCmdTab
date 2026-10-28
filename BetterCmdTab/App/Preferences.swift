@@ -177,10 +177,8 @@ enum SearchDismissMode: String, CaseIterable {
 /// screen full of same-colored windows, which is the whole complaint in #185.
 enum SwitcherSelectionColor: String, CaseIterable {
     /// No hue on the selection plate — the neutral luminance highlight the
-    /// switcher shipped with through 26.7, and still the default: a tint is a
-    /// deliberate choice, not something an update should impose. Letter hints and
-    /// the launch/reopen glyphs keep the macOS accent; only the plate goes
-    /// colorless.
+    /// switcher shipped with through 26.7. Letter hints and the launch/reopen
+    /// glyphs keep the macOS accent; only the plate goes colorless.
     case transparent
     /// Follows the macOS accent color.
     case system
@@ -190,6 +188,10 @@ enum SwitcherSelectionColor: String, CaseIterable {
     case red
     case orange
     case yellow
+    /// The default: `systemGreen` reads against a busy wallpaper and against
+    /// the blue accent most windows already carry, so the selected tile is easy
+    /// to find. A user who picked another option keeps it; only an unset key
+    /// falls back to this.
     case green
     case graphite
     /// User-supplied color; the value lives in `Preferences.selectionColorHex`.
@@ -2831,7 +2833,7 @@ final class Preferences: ObservableObject {
         let materialRaw = defaults.string(forKey: Keys.backdropMaterial)
         self.backdropMaterial = materialRaw.flatMap(BackdropMaterial.init(rawValue:)) ?? .hud
         let selectionColorRaw = defaults.string(forKey: Keys.selectionColor)
-        self.selectionColor = selectionColorRaw.flatMap(SwitcherSelectionColor.init(rawValue:)) ?? .transparent
+        self.selectionColor = selectionColorRaw.flatMap(SwitcherSelectionColor.init(rawValue:)) ?? .green
         self.selectionColorHex = defaults.string(forKey: Keys.selectionColorHex)
         self.spaceScope = Self.storedSpaceScope(defaults)
         self.directActivationBindings = Self.normalizeBindings(defaults.stringArray(forKey: Keys.directActivationBindings) ?? [])
@@ -2996,7 +2998,7 @@ final class Preferences: ObservableObject {
         panelCornerRadius = Self.loadClamped(Keys.panelCornerRadius, default: 0, clamp: Self.clampCornerRadius, from: defaults)
         listWidthPercent = Self.loadClamped(Keys.listWidthPercent, default: 100, clamp: Self.clampListWidthPercent, from: defaults)
         backdropMaterial = defaults.string(forKey: Keys.backdropMaterial).flatMap(BackdropMaterial.init(rawValue:)) ?? .hud
-        selectionColor = defaults.string(forKey: Keys.selectionColor).flatMap(SwitcherSelectionColor.init(rawValue:)) ?? .transparent
+        selectionColor = defaults.string(forKey: Keys.selectionColor).flatMap(SwitcherSelectionColor.init(rawValue:)) ?? .green
         selectionColorHex = defaults.string(forKey: Keys.selectionColorHex)
         spaceScope = Self.storedSpaceScope(defaults)
         directActivationBindings = Self.normalizeBindings(defaults.stringArray(forKey: Keys.directActivationBindings) ?? [])

@@ -171,7 +171,7 @@ final class AppearanceSettingsViewController: SettingsTabViewController {
             selectionColorPopup.item(at: i)?.image = Self.swatch(for: color)
         }
         addRow(to: panel, title: String(localized: "Selection color"),
-               subtitle: String(localized: "Color of the highlight around the selected window and of the quick-jump letters. Follows your macOS accent by default."),
+               subtitle: String(localized: "Color of the highlight around the selected window and of the quick-jump letters. Green by default."),
                accessory: selectionColorPopup, searchItemID: SearchID.selectionColor)
 
         let opacityTitle = String(localized: "Panel opacity")

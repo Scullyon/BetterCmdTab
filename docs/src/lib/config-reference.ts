@@ -295,7 +295,7 @@ const defaults: Record<string, string> = {
   searchDismissMode: '"holdModifier"',
   searchExpandsBrowserTabs: 'false',
   searchIncludesLaunchableApps: 'true',
-  selectionColor: '"transparent"',
+  selectionColor: '"green"',
   // Unset by default; '' renders as a dash.
   selectionColorHex: '',
   shiftTapStepsBackward: 'true',
