@@ -547,6 +547,7 @@ struct ShortcutOverride: Equatable, Sendable {
     var expandBrowserTabsAsWindows: Bool?
     var stayOpenOnRelease: Bool?
     var stayOpenOnQuickTap: Bool?
+    var showSearchOnOpen: Bool?
     // Appearance (resolved into `EffectiveSettings`).
     var layoutMode: SwitcherLayoutMode?
     var panelScalePercent: Int?
@@ -580,7 +581,7 @@ struct ShortcutOverride: Equatable, Sendable {
         spaceScope == .inherit && showMinimized == nil && showHidden == nil
             && showWindowless == nil && sortOrder == nil && applicationsOnly == nil
             && windowShelf == nil && expandBrowserTabsAsWindows == nil && stayOpenOnRelease == nil
-            && stayOpenOnQuickTap == nil
+            && stayOpenOnQuickTap == nil && showSearchOnOpen == nil
             && layoutMode == nil && panelScalePercent == nil && panelAppearance == nil
             && fontScale == nil && fontFace == nil
             && gridMaxColumns == nil && listWidthPercent == nil
@@ -610,6 +611,7 @@ struct ShortcutOverride: Equatable, Sendable {
         put("expandBrowserTabsAsWindows", expandBrowserTabsAsWindows)
         put("stayOpenOnRelease", stayOpenOnRelease)
         put("stayOpenOnQuickTap", stayOpenOnQuickTap)
+        put("showSearchOnOpen", showSearchOnOpen)
         if let layoutMode { d["layoutMode"] = layoutMode.rawValue }
         put("panelScalePercent", panelScalePercent.map(Preferences.clampPanelScalePercent))
         if let panelAppearance { d["panelAppearance"] = panelAppearance.rawValue }
@@ -638,7 +640,7 @@ struct ShortcutOverride: Equatable, Sendable {
         "target",
         "spaceScope", "showMinimized", "showHidden", "showWindowless", "sortOrder",
         "applicationsOnly", "windowShelf", "expandBrowserTabsAsWindows", "stayOpenOnRelease",
-        "stayOpenOnQuickTap", "layoutMode", "panelSize", "panelScalePercent",
+        "stayOpenOnQuickTap", "showSearchOnOpen", "layoutMode", "panelSize", "panelScalePercent",
         "panelAppearance", "fontScale", "fontFace",
         "gridMaxColumns", "listWidthPercent", "panelOpacity", "panelCornerRadius", "backdropMaterial",
         "showWindowTitleLabel", "previewTitleAlignment", "titleTruncationMode",
@@ -662,6 +664,7 @@ struct ShortcutOverride: Equatable, Sendable {
         expandBrowserTabsAsWindows = bool("expandBrowserTabsAsWindows")
         stayOpenOnRelease = bool("stayOpenOnRelease")
         stayOpenOnQuickTap = bool("stayOpenOnQuickTap")
+        showSearchOnOpen = bool("showSearchOnOpen")
         layoutMode = dictionary["layoutMode"].flatMap(SwitcherLayoutMode.init(rawValue:))
         panelScalePercent = dictionary["panelScalePercent"].flatMap(Int.init)
             .map(Preferences.clampPanelScalePercent)
@@ -1016,6 +1019,7 @@ final class Preferences: ObservableObject {
         static let stayOpenOnQuickTap = "Switcher.stayOpenOnQuickTap"
         static let searchIncludesLaunchableApps = "Switcher.searchIncludesLaunchableApps"
         static let fuzzySearchRankBestMatchFirst = "Switcher.fuzzySearchRankBestMatchFirst"
+        static let showSearchOnOpen = "Switcher.showSearchOnOpen"
         static let searchExpandsBrowserTabs = "Switcher.searchExpandsBrowserTabs"
         static let showRecentlyClosed = "Switcher.showRecentlyClosed"
         static let recentlyClosedLimit = "Switcher.recentlyClosedLimit"
@@ -1525,6 +1529,16 @@ final class Preferences: ObservableObject {
         didSet {
             guard oldValue != searchIncludesLaunchableApps else { return }
             UserDefaults.standard.set(searchIncludesLaunchableApps, forKey: Keys.searchIncludesLaunchableApps)
+        }
+    }
+
+    /// Off by default. Open the switcher with the search bar already showing and
+    /// taking typed text, instead of waiting for the search key. Needs
+    /// `fuzzySearchEnabled`; overridable per shortcut.
+    @Published var showSearchOnOpen: Bool {
+        didSet {
+            guard oldValue != showSearchOnOpen else { return }
+            UserDefaults.standard.set(showSearchOnOpen, forKey: Keys.showSearchOnOpen)
         }
     }
 
@@ -2772,6 +2786,7 @@ final class Preferences: ObservableObject {
 
         self.searchIncludesLaunchableApps = defaults.object(forKey: Keys.searchIncludesLaunchableApps) as? Bool ?? true
         self.fuzzySearchRankBestMatchFirst = defaults.object(forKey: Keys.fuzzySearchRankBestMatchFirst) as? Bool ?? false
+        self.showSearchOnOpen = defaults.object(forKey: Keys.showSearchOnOpen) as? Bool ?? false
         self.searchExpandsBrowserTabs = defaults.object(forKey: Keys.searchExpandsBrowserTabs) as? Bool ?? false
         self.showRecentlyClosed = defaults.object(forKey: Keys.showRecentlyClosed) as? Bool ?? false
         self.recentlyClosedLimit = defaults.object(forKey: Keys.recentlyClosedLimit) as? Int ?? 5
@@ -2945,6 +2960,7 @@ final class Preferences: ObservableObject {
         stayOpenOnQuickTap = defaults.object(forKey: Keys.stayOpenOnQuickTap) as? Bool ?? false
         searchIncludesLaunchableApps = defaults.object(forKey: Keys.searchIncludesLaunchableApps) as? Bool ?? true
         fuzzySearchRankBestMatchFirst = defaults.object(forKey: Keys.fuzzySearchRankBestMatchFirst) as? Bool ?? false
+        showSearchOnOpen = defaults.object(forKey: Keys.showSearchOnOpen) as? Bool ?? false
         searchExpandsBrowserTabs = defaults.object(forKey: Keys.searchExpandsBrowserTabs) as? Bool ?? false
         showRecentlyClosed = defaults.object(forKey: Keys.showRecentlyClosed) as? Bool ?? false
         recentlyClosedLimit = Self.loadClamped(Keys.recentlyClosedLimit, default: 5, clamp: Self.clampRecentlyClosedLimit, from: defaults)

@@ -92,6 +92,7 @@ final class SwitcherPanesViewController: SettingsTabViewController {
     private let fuzzySwitch = NSSwitch()
     /// Kept so `viewWillAppear` can re-render the subtitle after a rebind.
     private var fuzzyRow: SettingsRowView?
+    private let showSearchOnOpenSwitch = PreferenceSwitch(bind: \.showSearchOnOpen)
     private let rankResultsSwitch = PreferenceSwitch(bind: \.fuzzySearchRankBestMatchFirst)
     private let launcherSwitch = PreferenceSwitch(bind: \.searchIncludesLaunchableApps)
     private let searchTabsSwitch = NSSwitch()
@@ -362,6 +363,9 @@ final class SwitcherPanesViewController: SettingsTabViewController {
         fuzzyRow = addRow(to: search, title: String(localized: "Type-to-filter search"),
                subtitle: Self.fuzzySubtitle(),
                accessory: fuzzySwitch, searchItemID: SearchID.fuzzy)
+        addRow(to: search, title: String(localized: "Show search bar"),
+               subtitle: String(localized: "Open the switcher with the search bar showing and focused, so typing filters straight away. Each shortcut can override this."),
+               accessory: showSearchOnOpenSwitch, searchItemID: SearchID.showSearchOnOpen)
         addRow(to: search, title: String(localized: "Rank search"),
                subtitle: String(localized: "Order results by how well they match instead of by recent use, so the closest match is selected first."),
                accessory: rankResultsSwitch, searchItemID: SearchID.rankResults)
@@ -543,6 +547,7 @@ final class SwitcherPanesViewController: SettingsTabViewController {
 
         fuzzySwitch.state = prefs.fuzzySearchEnabled ? .on : .off
         fuzzyRow?.update(subtitle: Self.fuzzySubtitle())
+        showSearchOnOpenSwitch.sync()
         rankResultsSwitch.sync()
         launcherSwitch.sync()
         selectSearchMode(prefs.searchDismissMode)
@@ -808,13 +813,14 @@ final class SwitcherPanesViewController: SettingsTabViewController {
         syncSearchOptionRows()
     }
 
-    /// The three rows below "Type-to-filter search" only do anything once a
+    /// The rows below "Type-to-filter search" only do anything once a
     /// search is running, and `enterSearch()` refuses to start one while
     /// type-to-filter is off — so disable them rather than leave live-looking
-    /// dead controls. A fourth, "Search browser tabs", hangs off the same
+    /// dead controls. Another, "Search browser tabs", hangs off the same
     /// prerequisite from the Tabs pane; `syncBrowserTabRows` handles that one.
     private func syncSearchOptionRows() {
         let on = Preferences.shared.fuzzySearchEnabled
+        showSearchOnOpenSwitch.isEnabled = on
         rankResultsSwitch.isEnabled = on
         launcherSwitch.isEnabled = on
         searchModePopup.isEnabled = on

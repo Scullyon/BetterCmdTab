@@ -78,6 +78,9 @@ final class ShortcutOptionsFormView: NSView {
         addBoolRow(to: behavior, title: String(localized: "Also stay open after a quick tap"),
                    subtitle: String(localized: "Only applies while \u{201C}Stay open after releasing the modifier\u{201D} is on for this shortcut."),
                    current: override.stayOpenOnQuickTap) { [weak self] in self?.override.stayOpenOnQuickTap = $0; self?.persist() }
+        addBoolRow(to: behavior, title: String(localized: "Show search bar"),
+                   subtitle: String(localized: "Open this switcher with the search bar showing and focused, so typing filters straight away. Needs \u{201C}Type-to-filter search\u{201D}."),
+                   current: override.showSearchOnOpen) { [weak self] in self?.override.showSearchOnOpen = $0; self?.persist() }
         addBoolRow(to: behavior, title: String(localized: "Expand browser tabs as windows"), current: override.expandBrowserTabsAsWindows) { [weak self] in self?.override.expandBrowserTabsAsWindows = $0; self?.persist() }
         addCard(behavior)
 

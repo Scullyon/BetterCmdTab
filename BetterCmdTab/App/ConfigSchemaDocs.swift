@@ -183,7 +183,7 @@ enum ConfigSchemaDocs {
     private static let overrideFields = [
         "showMinimized", "showHidden", "showWindowless", "sortOrder", "applicationsOnly",
         "windowShelf", "expandBrowserTabsAsWindows", "stayOpenOnRelease", "stayOpenOnQuickTap",
-        "layoutMode", "panelScalePercent", "panelAppearance", "fontScale", "fontFace",
+        "showSearchOnOpen", "layoutMode", "panelScalePercent", "panelAppearance", "fontScale", "fontFace",
         "gridMaxColumns", "listWidthPercent", "panelOpacity", "panelCornerRadius",
         "backdropMaterial", "showWindowTitleLabel", "previewTitleAlignment",
         "titleTruncationMode", "boldSelectedLabel", "showApplicationNames",
@@ -428,6 +428,7 @@ enum ConfigSchemaDocs {
             values: ConfigValues(SearchDismissMode.self, \.displayName)),
         "searchIncludesLaunchableApps": ConfigSettingDoc("boolean", "Include installed apps that aren't running, so search can launch them."),
         "fuzzySearchRankBestMatchFirst": ConfigSettingDoc("boolean", "Sort search results by match quality instead of keeping the list order."),
+        "showSearchOnOpen": ConfigSettingDoc("boolean", "Open the switcher with the search bar showing and focused, so typing filters straight away. Needs fuzzySearchEnabled."),
         "searchExpandsBrowserTabs": ConfigSettingDoc("boolean", "Search browser tab titles too."),
 
         // Keyboard

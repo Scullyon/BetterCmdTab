@@ -124,6 +124,7 @@ const sections: { title: string; keys: string[] }[] = [
     title: 'Search',
     keys: [
       'fuzzySearchEnabled',
+      'showSearchOnOpen',
       'fuzzySearchRankBestMatchFirst',
       'searchIncludesLaunchableApps',
       'searchExpandsBrowserTabs',
@@ -304,6 +305,7 @@ const defaults: Record<string, string> = {
   showHiddenApps: 'true',
   showMinimizedWindows: 'true',
   showRecentlyClosed: 'false',
+  showSearchOnOpen: 'false',
   showUnreadBadges: 'true',
   showWindowStatusIcons: 'true',
   showWindowTitleLabel: 'true',

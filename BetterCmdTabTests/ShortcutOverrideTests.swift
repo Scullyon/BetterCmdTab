@@ -96,6 +96,7 @@ struct ShortcutOverrideTests {
         ov.expandBrowserTabsAsWindows = false
         ov.stayOpenOnRelease = true
         ov.stayOpenOnQuickTap = false
+        ov.showSearchOnOpen = true
         ov.layoutMode = .list
         ov.panelScalePercent = 73
         ov.panelAppearance = .dark
@@ -353,6 +354,20 @@ struct ShortcutOverrideTests {
         #expect(prefs.effectiveSettings(for: ov).stayOpenOnQuickTap == target)
         // Unset inherits the global.
         #expect(prefs.effectiveSettings(for: ShortcutOverride()).stayOpenOnQuickTap == prefs.stayOpenOnQuickTap)
+    }
+
+    @Test("show-search-on-open resolves the override over the global")
+    func effectiveShowSearchOnOpenOverride() {
+        let prefs = Preferences.shared
+        var ov = ShortcutOverride()
+        // Force the opposite of the current global so the assertion is real.
+        let target = !prefs.showSearchOnOpen
+        ov.showSearchOnOpen = target
+        #expect(!ov.isEmpty)
+        #expect(ov.dictionary["showSearchOnOpen"] == (target ? "true" : "false"))
+        #expect(prefs.effectiveSettings(for: ov).showSearchOnOpen == target)
+        // Unset inherits the global.
+        #expect(prefs.effectiveSettings(for: ShortcutOverride()).showSearchOnOpen == prefs.showSearchOnOpen)
     }
 
     @Test("text size and font face resolve the override over the global (#62)")

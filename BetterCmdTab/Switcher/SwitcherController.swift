@@ -3586,6 +3586,7 @@ final class SwitcherController: SwitcherViewDelegate {
         // seconds, so it bypasses the per-window TTL (the 0.4 s forced-scan
         // rate limit still bounds osascript spawns on rapid re-opens).
         scheduleBrowserTabExpansion(force: true)
+        enterSearchIfShownOnOpen()
 
         if !cache.hasCompletedFullScan {
             // Reuse the startup scan already in flight. Warm reveals are served
@@ -3702,6 +3703,7 @@ final class SwitcherController: SwitcherViewDelegate {
         // Forced for the same reason as the apps-mode reveal: fresh tab state
         // on open, TTL bypassed, bounded by the forced-scan rate limit.
         scheduleBrowserTabExpansion(force: true)
+        enterSearchIfShownOnOpen()
     }
 
     private func scheduleWindowsOnlyRefresh(pid: pid_t, gen: UInt64) {
@@ -6457,6 +6459,16 @@ final class SwitcherController: SwitcherViewDelegate {
 
     private func toggleSearch() {
         if searchActive { exitSearch() } else { enterSearch() }
+    }
+
+    /// The firing shortcut's "Show search bar" option: open with search already
+    /// active, so typing filters without pressing the search key first. Runs
+    /// once the panel is `.visible`, which `enterSearch` requires. Releasing ⌘
+    /// then behaves as in any search, per `searchDismissMode`.
+    private func enterSearchIfShownOnOpen() {
+        if effective.showSearchOnOpen {
+            enterSearch()
+        }
     }
 
     private func enterSearch() {

@@ -828,6 +828,14 @@
             ],
             "type" : "string"
           },
+          "showSearchOnOpen" : {
+            "description" : "Override: Open the switcher with the search bar showing and focused, so typing filters straight away. Needs fuzzySearchEnabled.",
+            "enum" : [
+              "true",
+              "false"
+            ],
+            "type" : "string"
+          },
           "showUnreadBadges" : {
             "description" : "Override: Show each app's Dock unread badge on its entry.",
             "enum" : [
@@ -971,6 +979,10 @@
     },
     "showRecentlyClosed" : {
       "description" : "Offer recently closed apps in search so they can be reopened.",
+      "type" : "boolean"
+    },
+    "showSearchOnOpen" : {
+      "description" : "Open the switcher with the search bar showing and focused, so typing filters straight away. Needs fuzzySearchEnabled.",
       "type" : "boolean"
     },
     "showUnreadBadges" : {

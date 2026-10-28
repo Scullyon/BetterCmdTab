@@ -11454,6 +11454,86 @@
         }
       }
     },
+    "Open the switcher with the search bar showing and focused, so typing filters straight away. Each shortcut can override this." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnet den Umschalter mit sichtbarer und aktiver Suchleiste, sodass Tippen sofort filtert. Jedes Tastenkürzel kann dies überschreiben."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre el conmutador con la barra de búsqueda visible y activa, para que al escribir se filtre de inmediato. Cada atajo puede anular este ajuste."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre le sélecteur avec la barre de recherche affichée et active, pour que la saisie filtre immédiatement. Chaque raccourci peut remplacer ce réglage."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otwiera przełącznik z widocznym i aktywnym paskiem wyszukiwania, więc pisanie od razu filtruje. Każdy skrót może to zastąpić."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открывать переключатель с видимой и активной строкой поиска, чтобы ввод сразу фильтровал список. Каждое сочетание клавиш может переопределить это."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开切换器时显示搜索栏并使其获得焦点，输入即可立即筛选。每个快捷键都可以覆盖此设置。"
+          }
+        }
+      }
+    },
+    "Open this switcher with the search bar showing and focused, so typing filters straight away. Needs “Type-to-filter search”." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnet diesen Umschalter mit sichtbarer und aktiver Suchleiste, sodass Tippen sofort filtert. Erfordert „Suche durch Tippen filtern“."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre este conmutador con la barra de búsqueda visible y activa, para que al escribir se filtre de inmediato. Requiere «Búsqueda al escribir»."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre ce sélecteur avec la barre de recherche affichée et active, pour que la saisie filtre immédiatement. Nécessite « Recherche par saisie »."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otwiera ten przełącznik z widocznym i aktywnym paskiem wyszukiwania, więc pisanie od razu filtruje. Wymaga „Wyszukiwanie przez pisanie”."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открывать этот переключатель с видимой и активной строкой поиска, чтобы ввод сразу фильтровал список. Требуется «Поиск вводом символов»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开此切换器时显示搜索栏并使其获得焦点，输入即可立即筛选。需要开启“输入筛选搜索”。"
+          }
+        }
+      }
+    },
     "Opens this shortcut's switcher. Hold the modifier and tap." : {
       "localizations" : {
         "de" : {
@@ -15541,6 +15621,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示最近关闭的应用"
+          }
+        }
+      }
+    },
+    "Show search bar" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suchleiste anzeigen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar barra de búsqueda"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher la barre de recherche"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż pasek wyszukiwania"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показывать строку поиска"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示搜索栏"
           }
         }
       }

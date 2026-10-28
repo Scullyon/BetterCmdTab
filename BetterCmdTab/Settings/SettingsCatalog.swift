@@ -139,6 +139,7 @@ enum SearchID {
     static let letterChainTimeout = "keyboard.letterChainTimeout"
     static let oneHandHints = "keyboard.oneHandHints"
     static let fuzzy = "keyboard.fuzzy"
+    static let showSearchOnOpen = "keyboard.showSearchOnOpen"
     static let rankResults = "keyboard.rankResults"
     static let launcher = "keyboard.launcher"
     static let searchMode = "keyboard.searchMode"
@@ -495,6 +496,8 @@ enum SettingsCatalog {
         // Keyboard · Search
         item(SearchID.fuzzy, .keyboard, SettingsAnchor.search, String(localized: "Keyboard"), String(localized: "Search"),
              String(localized: "Type-to-filter search"), ["search", "filter", "fuzzy", "type"]),
+        item(SearchID.showSearchOnOpen, .keyboard, SettingsAnchor.search, String(localized: "Keyboard"), String(localized: "Search"),
+             String(localized: "Show search bar"), ["search", "search bar", "open", "focus", "type", "filter"]),
         item(SearchID.rankResults, .keyboard, SettingsAnchor.search, String(localized: "Keyboard"), String(localized: "Search"),
              String(localized: "Rank search"), ["fuzzy", "search", "ranking", "rank", "best match", "sort results", "relevance"]),
         item(SearchID.launcher, .keyboard, SettingsAnchor.search, String(localized: "Keyboard"), String(localized: "Search"),

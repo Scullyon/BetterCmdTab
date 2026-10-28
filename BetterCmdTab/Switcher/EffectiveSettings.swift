@@ -54,6 +54,8 @@ struct EffectiveSettings {
     let sortOrder: SwitcherSortOrder
     let stayOpenOnRelease: Bool
     let stayOpenOnQuickTap: Bool
+    /// Enter search as soon as the panel is shown.
+    let showSearchOnOpen: Bool
 
     /// The all-global snapshot (no override). Cheap; reads `Preferences.shared`.
     @MainActor static var defaults: EffectiveSettings {
@@ -100,7 +102,8 @@ extension Preferences {
             expandBrowserTabsAsWindows: override.expandBrowserTabsAsWindows ?? expandBrowserTabsAsWindows,
             sortOrder: override.sortOrder ?? sortOrder,
             stayOpenOnRelease: override.stayOpenOnRelease ?? stayOpenOnRelease,
-            stayOpenOnQuickTap: override.stayOpenOnQuickTap ?? stayOpenOnQuickTap
+            stayOpenOnQuickTap: override.stayOpenOnQuickTap ?? stayOpenOnQuickTap,
+            showSearchOnOpen: override.showSearchOnOpen ?? showSearchOnOpen
         )
     }
 }
